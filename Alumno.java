@@ -16,6 +16,8 @@ public class Alumno {
 	// Constructor 
 	public Alumno(String dni) {
 		this.dni = dni;
+		this.faltas = new ArrayList<DiaClase>();
+		this.notas = new ArrayList<Calificacion>();
 	}
 	
 	// Constructor
@@ -48,6 +50,27 @@ public class Alumno {
 		return email;
 	}
 	
+	// Metodos set
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	// Sobrecarga del método equals de la clase Object
 	public boolean equals(Object object){
 		boolean igual = false;
@@ -57,8 +80,7 @@ public class Alumno {
 			
 		if(alumno.getDni().equalsIgnoreCase(this.getDni()))
 			igual = true;
-		}
-		
+		}	
 		return igual; 
 	}
 }
