@@ -10,7 +10,7 @@ public class Alumno {
 	private String apellidos;
 	private String telefono;
 	private String email;
-	//private ArrayList<DiaClase> faltas;
+	private ArrayList<DiaClase> faltas;
 	private ArrayList<Calificacion> notas;
 	
 	// Constructor 
@@ -23,17 +23,13 @@ public class Alumno {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		//this.faltas = new ArrayList<DiaClase>();
+		this.faltas = new ArrayList<DiaClase>();
 		this.notas = new ArrayList<Calificacion>();
 	}
 
 	// Metodos get
 	public String getDni() {
 		return dni;
-	}
-
-	public void setDni(String dni) {
-		this.dni = dni;
 	}
 
 	public String getNombre() {
