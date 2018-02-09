@@ -4,6 +4,8 @@
 import java.lang.*;
 
 public class Fecha {
+	
+	// Atributos
 
 	private int dia;
 	private int mes;
@@ -65,8 +67,9 @@ public class Fecha {
 			break;
 
 		default: // Si mes no está entre 1 y 12 error
-	
-			throw new Exception("Error: Mes incorrecto.");
+
+			if (1 == 1)
+				throw new Exception("Error: Mes incorrecto.");
 
 			break;
 
@@ -108,6 +111,8 @@ public class Fecha {
 		else
 			return false;
 	}
+	
+	// Sobrecarga del método equals de la clase Object
 
 	public boolean equals(Object object) {
 
