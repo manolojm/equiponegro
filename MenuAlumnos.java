@@ -139,7 +139,62 @@ public class MenuAlumnos{
 			
 		} while (numerote == 1);
 	}
-
+	
+	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
+	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos){
+		
+		Scanner entrada = new Scanner(System.in);
+		
+		int numeroAlumno;
+		String asig, calif;
+		
+		System.out.println("Introduzca el número de lista del alumno: ");
+		numeroAlumno = entrada.nextInt();
+		
+		Alumno alumno = listaAlumnos.get(numeroAlumno);
+		
+		entrada.nextLine();
+		
+		System.out.println("Introduzca la asignatura: ");
+		asig = entrada.nextLine();
+		
+		System.out.println("Introduzca la calificación: ");
+		calif = entrada.nextLine();
+		
+		ArrayList<Calificacion> calificaciones = alumno.getNotas();
+		
+		Calificacion calificacion = new Calificacion("0");
+		
+		calificacion.setNota(calif);	// ¿Poner un constructor con los dos atriutos?
+		
+		calificacion.setAsignatura(asig);
+		
+		calificaciones.add(calificacion);
+		
+		alumno.setNotas(calificaciones);
+		
+	}
+	
+	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
+	public static void mostrarCalificaciones(ArrayList<Alumno> listaAlumnos) {
+		
+		Scanner entrada = new Scanner(System.in);
+		
+		int numeroAlumno;
+		
+		System.out.println("Introduzca el número de lista del alumno: ");
+		numeroAlumno = entrada.nextInt();
+			
+		ArrayList<Calificacion> calificaciones = listaAlumnos.get(numeroAlumno).getNotas();
+		
+		System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(numeroAlumno).getDni() + " es " );
+		
+		for(int j = 0; j < calificaciones.size(); j++) {
+			
+			System.out.println("Asignatura: " + calificaciones.get(j).getAsignatura());
+			System.out.println("Nota: " + calificaciones.get(j).getNota());
+		}
+	}
 	
 	/*** Main ***/
 	public static void main(String[] args) throws Exception {
@@ -160,6 +215,8 @@ public class MenuAlumnos{
 			mostrarMenu();
 			
 			opcion = entrada.nextInt();
+			
+			entrada.nextLine();
 		
 			switch(opcion) {
 			
@@ -209,13 +266,13 @@ public class MenuAlumnos{
 				
 			case 7:
 				
-				
+				introducirCalificacion(listaAlumnos);
 				
 				break;
 				
 			case 8:
 				
-				
+				mostrarCalificaciones(listaAlumnos);
 				
 				break;
 				

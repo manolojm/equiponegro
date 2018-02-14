@@ -1,6 +1,7 @@
 // Clase Alumno. Autor: Manuel Antonio Jiménez
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Alumno {
 	
@@ -50,6 +51,11 @@ public class Alumno {
 		return email;
 	}
 	
+	public ArrayList<Calificacion> getNotas(){
+		
+		return notas;
+	}
+	
 	// Metodos set
 	public void setDni(String dni) {
 		this.dni = dni;
@@ -69,6 +75,11 @@ public class Alumno {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void setNotas(ArrayList<Calificacion> notas) {
+		
+		this.notas = notas;
 	}
 	
 	// Sobrecarga del método equals de la clase Object
