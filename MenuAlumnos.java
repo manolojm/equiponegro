@@ -287,6 +287,9 @@ public class MenuAlumnos{
 			case 2:
 				
 				MenuAlumnos.darBaja(listaAlumnos);
+				System.out.println("Se ha dado de baja al alumno.");
+				
+				System.out.println("\n");
 				
 				break;
 				
