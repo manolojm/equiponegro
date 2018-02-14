@@ -23,6 +23,62 @@ public class MenuAlumnos{
 		System.out.println("13 para salir");
 	}
 	
+	/*** Metodo 1: Dar de alta - Autor: Alejandro Fandila Cano. ***/
+	public static void darAlta(ArrayList<Alumno> lista) {
+		
+		Scanner entrada = new Scanner(System.in);
+		
+		Alumno nuevo = new Alumno(null);
+		
+		System.out.println("Introduzca el nombre del alumno:");
+		nuevo.setNombre(entrada.nextLine());
+		
+		System.out.println("Introduzca los apellidos del alumno:");
+		nuevo.setApellidos(entrada.nextLine());
+		
+		System.out.println("Introduzca el dni del alumno:");
+		nuevo.setDni(entrada.nextLine());
+		
+		System.out.println("Introduzca el numero de telefono del alumno:");
+		nuevo.setTelefono(entrada.nextLine());
+		
+		System.out.println("Introduzca el email del alumno:");
+		nuevo.setEmail(entrada.nextLine());
+		
+		lista.add(nuevo);
+		
+	}
+	
+	/*** Método 2: Dar de baja - Autor: Alejandro Fandila Cano. ***/
+	public static void darBaja(ArrayList<Alumno> lista) {
+		
+		boolean numero;
+		int seleccionar = -1;
+		
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("¿Introduzca a quien desea dar de baja?:");
+		MenuAlumnos.listarAlumnos(lista);
+		
+		//En caso de que no se introduzca correctamente, el metodo no hara nada.
+		do {
+			try {
+				numero = true;
+				seleccionar = entrada.nextInt();
+				lista.remove(seleccionar);
+			}catch(InputMismatchException ex) {
+					numero = false;
+					
+					System.out.println("No se ha introducido ningun numero.");
+			}catch(IndexOutOfBoundsException ex2) {
+				System.out.println("El alumno "+seleccionar+" no existe.");
+			}
+			
+		}while(numero = false);	
+		
+		System.out.println("\n");
+		
+	}
 	
 	/*** Metodo 3: Listar Alumnos - Manolo ***/
 	public static void listarAlumnos(ArrayList<Alumno> listaAlumnos) {
@@ -38,7 +94,6 @@ public class MenuAlumnos{
 			+ " \n/ Telefono: " + alumnoElegido.getTelefono() + " / Email: " + alumnoElegido.getEmail());		
 		}
 	}
-	
 	
 	/*** Metodo 4: Modificar Alumnos - Manolo ***/
 	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) {
@@ -194,6 +249,7 @@ public class MenuAlumnos{
 			System.out.println("Asignatura: " + calificaciones.get(j).getAsignatura());
 			System.out.println("Nota: " + calificaciones.get(j).getNota());
 		}
+		
 	}
 	
 	/*** Main ***/
@@ -222,13 +278,15 @@ public class MenuAlumnos{
 			
 			case 1:
 				
+				MenuAlumnos.darAlta(listaAlumnos);
+				System.out.println("Se ha dado de alta ha el alumno.");
 				
-				
+				System.out.println("\n");
 				break;
 				
 			case 2:
 				
-				
+				MenuAlumnos.darBaja(listaAlumnos);
 				
 				break;
 				
