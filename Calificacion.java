@@ -5,8 +5,8 @@ public class Calificacion {
 
 	// Atributos
 
-	String asignatura;
-	String nota;
+	private String asignatura;
+	private String nota;
 
 	// Método constructor que recibe el String asignatura por parámetros
 

@@ -121,6 +121,7 @@ public class MenuAlumnos {
 
 			do {
 
+
 				// Menu para elegir que se desea modificar
 				System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
 						+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
@@ -376,7 +377,6 @@ public class MenuAlumnos {
 		calificaciones.add(calificacion);
 
 		alumno.cambiarNotas(calificaciones);
-
 	}
 
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
@@ -397,8 +397,8 @@ public class MenuAlumnos {
 
 			System.out.println("Asignatura: " + calificaciones.get(j).getAsignatura());
 			System.out.println("Nota: " + calificaciones.get(j).getNota());
-		}
 
+		}
 	}
 	
 	/*** Metodo 11: Pasar lista - Manolo ***/
@@ -490,6 +490,7 @@ public class MenuAlumnos {
 				break;
 
 			case 4: // Manolo
+
 
 				// Llamamos al metodo
 				modificarAlumnos(listaAlumnos);
