@@ -2,11 +2,11 @@
 import java.util.*;
 import java.lang.*;
 
-public class MenuAlumnos{
-	
+public class MenuAlumnos {
+
 	/*** Menú ***/
 	public static void mostrarMenu() {
-		
+
 		System.out.println("Introduzca la opción del menú: ");
 		System.out.println("1 para dar de alta alumnos");
 		System.out.println("2 para dar de baja alumnos");
@@ -22,88 +22,88 @@ public class MenuAlumnos{
 		System.out.println("12 para listar faltas");
 		System.out.println("13 para salir");
 	}
-	
+
 	/*** Metodo 1: Dar de alta - Autor: Alejandro Fandila Cano. ***/
 	public static void darAlta(ArrayList<Alumno> lista) {
-		
+
 		Scanner entrada = new Scanner(System.in);
-		
+
 		Alumno nuevo = new Alumno(null);
-		
+
 		System.out.println("Introduzca el nombre del alumno:");
 		nuevo.setNombre(entrada.nextLine());
-		
+
 		System.out.println("Introduzca los apellidos del alumno:");
 		nuevo.setApellidos(entrada.nextLine());
-		
+
 		System.out.println("Introduzca el dni del alumno:");
 		nuevo.setDni(entrada.nextLine());
-		
+
 		System.out.println("Introduzca el numero de telefono del alumno:");
 		nuevo.setTelefono(entrada.nextLine());
-		
+
 		System.out.println("Introduzca el email del alumno:");
 		nuevo.setEmail(entrada.nextLine());
-		
-		if(nuevo.existe(lista) == false) {
+
+		if (nuevo.existe(lista) == false) {
 			lista.add(nuevo);
 			System.out.println("Se ha dado de alta al alumno.");
-		}else {
+		} else {
 			System.out.println("El alumno ya se encuentra dado de alta.");
 		}
-		
+
 	}
-	
+
 	/*** Método 2: Dar de baja - Autor: Alejandro Fandila Cano. ***/
 	public static void darBaja(ArrayList<Alumno> lista) {
-		
+
 		boolean numero;
 		int seleccionar = -1;
-		
+
 		Scanner entrada = new Scanner(System.in);
-		
+
 		System.out.println("¿Introduzca a quien desea dar de baja?:");
 		MenuAlumnos.listarAlumnos(lista);
-		
-		//En caso de que no se introduzca correctamente, el metodo no hara nada.
+
+		// En caso de que no se introduzca correctamente, el metodo no hara nada.
 		do {
 			try {
 				numero = true;
 				seleccionar = entrada.nextInt();
 				lista.remove(seleccionar);
-			}catch(InputMismatchException ex) {
-					numero = false;
-					
-					System.out.println("No se ha introducido ningun numero.");
-			}catch(IndexOutOfBoundsException ex2) {
-				System.out.println("El alumno "+seleccionar+" no existe.");
+			} catch (InputMismatchException ex) {
+				numero = false;
+
+				System.out.println("No se ha introducido ningun numero.");
+			} catch (IndexOutOfBoundsException ex2) {
+				System.out.println("El alumno " + seleccionar + " no existe.");
 			}
-			
-		}while(numero = false);	
-		
+
+		} while (numero = false);
+
 		System.out.println("\n");
-		
+
 	}
-	
+
 	/*** Metodo 3: Listar Alumnos - Manolo ***/
 	public static void listarAlumnos(ArrayList<Alumno> listaAlumnos) {
-		
+
 		// Ciclo para sacar los alumnos
 		for (int i = 0; i < listaAlumnos.size(); i++) {
-			
+
 			Alumno alumnoElegido = listaAlumnos.get(i);
-			
+
 			// Mostrar Alumno
-			System.out.println("Numero : " + i + " / DNI: " + alumnoElegido.getDni() + " / Nombre: " 
-			+ alumnoElegido.getNombre() + " / Apellidos: " + alumnoElegido.getApellidos() 
-			+ " \n/ Telefono: " + alumnoElegido.getTelefono() + " / Email: " + alumnoElegido.getEmail());		
+			System.out.println("Numero : " + i + " / DNI: " + alumnoElegido.getDni() + " / Nombre: "
+					+ alumnoElegido.getNombre() + " / Apellidos: " + alumnoElegido.getApellidos() + " \n/ Telefono: "
+					+ alumnoElegido.getTelefono() + " / Email: " + alumnoElegido.getEmail());
 		}
 	}
-	
+
 	/*** Metodo 4: Modificar Alumnos - Manolo ***/
 	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) {
-		
-		Scanner entrada = new Scanner(System.in);	
+
+		Scanner entrada = new Scanner(System.in);
 		int numerote = 1;
 
 		do {
@@ -117,9 +117,9 @@ public class MenuAlumnos{
 			Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
 
 			do {
-				
-				System.out.println(
-						"Que desea modificar? \n1 - DNI \n2 - Nombre" + "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
+
+				System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
+						+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
 				numerito = entrada.nextInt();
 
 				switch (numerito) {
@@ -191,200 +191,338 @@ public class MenuAlumnos{
 				}
 
 			} while (numerito != 6);
-			
+
 			do {
 				System.out.println("Desea modificar otro alumno? (1 - Si / 2 - No)");
 				numerote = entrada.nextInt();
 			} while (numerote > 2 || numerote < 1);
-			
+
 		} while (numerote == 1);
 	}
-	
-	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
-	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos){
-		
+
+	/*** Método 5: Matricular alumnos - David ***/
+
+	public static void matricularAlumnos(ArrayList<Alumno> listaAlumnos) {
+
 		Scanner entrada = new Scanner(System.in);
-		
+
+		// Variables
+
+		int idAlumno = 0;
+		String asignatura = "";
+		boolean encontrado = false;
+
+		// Pedimos el alumno al que vamos a matricular
+
+		System.out.println("Introduzca el número del alumno que quiere matricular: ");
+		idAlumno = entrada.nextInt();
+
+		// Buscamos al alumno que ha introducido el usuario
+
+		Alumno alumno = listaAlumnos.get(idAlumno);
+
+		// Declaramos un ArrayList de Calificación y declaramos su constructor
+
+		ArrayList<Calificacion> calificaciones = alumno.getNotas();
+
+		Calificacion nuevaAsignatura = new Calificacion(asignatura);
+
+		// Limpiamos el buffer y pedimos la asignatura
+
+		entrada.nextLine();
+
+		System.out.println("Introduzca el nombre de la asignatura de la que va a ser matriculado el alumno: ");
+		asignatura = entrada.nextLine();
+
+		// Comprobamos a través del método equals de la clase Calificación que la
+		// asignatura introducida por el usuario no ha sido introducida anteriormente
+
+		for (int i = 0; i < calificaciones.size(); i++) {
+
+			if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
+
+				encontrado = true;
+			}
+		}
+
+		// Si la asignatura no se había introducido anteriormente lo añade correctamente
+
+		if (!encontrado) {
+
+			calificaciones.add(nuevaAsignatura);
+			nuevaAsignatura.setAsignatura(asignatura);
+
+			System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
+					+ " ha sido correctamente matriculado en " + asignatura
+					+ ". Está matriculado en las siguientes asignaturas:");
+
+			for (int i = 0; i < calificaciones.size(); i++) {
+
+				System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
+			}
+
+		} else {
+
+			System.out.println("El alumno ya estaba matriculado en " + asignatura);
+		}
+
+	}
+
+	/*** Método 6: Dar de baja de una asignatura - David ***/
+
+	public static void bajaAsignatura(ArrayList<Alumno> listaAlumnos) {
+
+		Scanner entrada = new Scanner(System.in);
+
+		// Variables
+
+		int idAlumno = 0;
+		String asignatura = "";
+		boolean encontrado = false;
+		int aux = 0;
+
+		// Pedimos el alumno al que vamos a matricular
+
+		System.out.println("Introduzca el número del alumno que quiere desmatricular: ");
+		idAlumno = entrada.nextInt();
+
+		// Buscamos al alumno que ha introducido el usuario
+
+		Alumno alumno = listaAlumnos.get(idAlumno);
+
+		// Declaramos un ArrayList de Calificación y declaramos su constructor
+
+		ArrayList<Calificacion> calificaciones = alumno.getNotas();
+
+		Calificacion quitarAsignatura = new Calificacion(asignatura);
+
+		// Limpiamos el buffer y pedimos la asignatura
+
+		entrada.nextLine();
+
+		System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
+		asignatura = entrada.nextLine();
+
+		// Comprobamos a través del método equals de la clase Calificación que el alumno
+		// está matriculado en esa asignatura
+
+		for (int i = 0; i < calificaciones.size(); i++) {
+
+			if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
+
+				encontrado = true;
+				aux = i; // Almacenamos la posición en la que se encuentra la asignatura en una variable
+							// auxiliar
+			}
+		}
+
+		// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
+		// que se encontraba (gracias a aux)
+
+		if (encontrado) {
+
+			calificaciones.remove(aux);
+
+			System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
+					+ " ha sido correctamente desmatriculado de " + asignatura
+					+ ". Está matriculado en las siguientes asignaturas:");
+
+			for (int i = 0; i < calificaciones.size(); i++) {
+
+				System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
+			}
+
+		} else {
+
+			System.out.println("El alumno no estaba matriculado la asignatura " + asignatura);
+		}
+
+	}
+
+	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
+	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos) {
+
+		Scanner entrada = new Scanner(System.in);
+
 		int numeroAlumno;
 		String asig, calif;
-		
+
 		System.out.println("Introduzca el número de lista del alumno: ");
 		numeroAlumno = entrada.nextInt();
-		
+
 		Alumno alumno = listaAlumnos.get(numeroAlumno);
-		
+
 		entrada.nextLine();
-		
+
 		System.out.println("Introduzca la asignatura: ");
 		asig = entrada.nextLine();
-		
+
 		System.out.println("Introduzca la calificación: ");
 		calif = entrada.nextLine();
-		
+
 		ArrayList<Calificacion> calificaciones = alumno.getNotas();
-		
+
 		Calificacion calificacion = new Calificacion("0");
-		
-		calificacion.setNota(calif);	// ¿Poner un constructor con los dos atriutos?
-		
+
+		calificacion.setNota(calif); // ¿Poner un constructor con los dos atriutos?
+
 		calificacion.setAsignatura(asig);
-		
+
 		calificaciones.add(calificacion);
-		
+
 		alumno.setNotas(calificaciones);
-		
+
 	}
-	
+
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
 	public static void mostrarCalificaciones(ArrayList<Alumno> listaAlumnos) {
-		
+
 		Scanner entrada = new Scanner(System.in);
-		
+
 		int numeroAlumno;
-		
+
 		System.out.println("Introduzca el número de lista del alumno: ");
 		numeroAlumno = entrada.nextInt();
-			
+
 		ArrayList<Calificacion> calificaciones = listaAlumnos.get(numeroAlumno).getNotas();
-		
-		System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(numeroAlumno).getDni() + " es " );
-		
-		for(int j = 0; j < calificaciones.size(); j++) {
-			
+
+		System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(numeroAlumno).getDni() + " es ");
+
+		for (int j = 0; j < calificaciones.size(); j++) {
+
 			System.out.println("Asignatura: " + calificaciones.get(j).getAsignatura());
 			System.out.println("Nota: " + calificaciones.get(j).getNota());
 		}
-		
+
 	}
-	
-	
+
 	/*** Main ***/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Scanner entrada = new Scanner(System.in);
-		
+
 		// Variables
 		ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
 		boolean salir = false;
 		int opcion;
-		
+
 		// Pruebas
 		Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
 		listaAlumnos.add(alumno1);
-		
+
 		do {
-			
+
 			mostrarMenu();
-			
+
 			opcion = entrada.nextInt();
-			
+
 			entrada.nextLine();
-		
-			switch(opcion) {
-			
+
+			switch (opcion) {
+
 			case 1:
-				
+
 				MenuAlumnos.darAlta(listaAlumnos);
-				
+
 				System.out.println("\n");
 				break;
-				
+
 			case 2:
-				
+
 				MenuAlumnos.darBaja(listaAlumnos);
 				System.out.println("Se ha dado de baja al alumno.");
-				
+
 				System.out.println("\n");
-				
+
 				break;
-				
+
 			case 3: // Manolo
-				
-				// Llamamos a la funcion 
+
+				// Llamamos a la funcion
 				listarAlumnos(listaAlumnos);
-				
+
 				// Salto de linea
 				System.out.println();
-				
+
 				break;
-				
+
 			case 4: // Manolo
-				
-				// Llamamos a la funcion 
+
+				// Llamamos a la funcion
 				modificarAlumnos(listaAlumnos);
-						
+
 				// Salto de linea
 				System.out.println();
-						
+
 				break;
-						
+
 			case 5:
-				
-				
+
+				// Llamamos a la funcion
+				matricularAlumnos(listaAlumnos);
+
+				// Salto de linea
+				System.out.println();
 				
 				break;
-				
+
 			case 6:
-				
-				
+
+				// Llamamos a la funcion
+				bajaAsignatura(listaAlumnos);
+
+				// Salto de linea
+				System.out.println();
 				
 				break;
-				
+
 			case 7:
-				
+
 				introducirCalificacion(listaAlumnos);
-				
+
 				break;
-				
+
 			case 8:
-				
+
 				mostrarCalificaciones(listaAlumnos);
-				
+
 				break;
-				
+
 			case 9:
-				
-				
-				
+
 				break;
-				
+
 			case 10:
-				
-				
-				
+
 				break;
-				
+
 			case 11:
-				
-				
-				
+
 				break;
-				
+
 			case 12:
-				
-				
-				
+
 				break;
-				
+
 			case 13:
-				
+
 				System.out.println("Has salido");
-				
+
 				salir = true;
-				
+
 				break;
-			
+
 			default:
-				
-				if(opcion < 1 || opcion > 13)
-				
+
+				if (opcion < 1 || opcion > 13)
+
 					throw new Exception("Error. Opción incorrecta");
-				
+
 				break;
 			}
-		
-		}while(!salir);
+
+		} while (!salir);
 
 	}
-	
+
 }
