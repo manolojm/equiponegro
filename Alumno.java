@@ -1,7 +1,6 @@
 // Clase Alumno. Autor: Manuel Antonio Jiménez
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Alumno {
 	
@@ -52,8 +51,11 @@ public class Alumno {
 	}
 	
 	public ArrayList<Calificacion> getNotas(){
-		
 		return notas;
+	}
+	
+	public ArrayList<DiaClase> getFaltas(){
+		return faltas;
 	}
 	
 	// Metodos set
@@ -77,8 +79,12 @@ public class Alumno {
 		this.email = email;
 	}
 	
-	public void setNotas(ArrayList<Calificacion> notas) {
-		
+	// Metodos acceder Arrays
+	public void cambiarFaltas(ArrayList<DiaClase> faltas) {
+		this.faltas = faltas;
+	}
+	
+	public void cambiarNotas(ArrayList<Calificacion> notas) {
 		this.notas = notas;
 	}
 	
