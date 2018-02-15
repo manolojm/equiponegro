@@ -45,7 +45,12 @@ public class MenuAlumnos{
 		System.out.println("Introduzca el email del alumno:");
 		nuevo.setEmail(entrada.nextLine());
 		
-		lista.add(nuevo);
+		if(nuevo.existe(lista) == false) {
+			lista.add(nuevo);
+			System.out.println("Se ha dado de alta al alumno.");
+		}else {
+			System.out.println("El alumno ya se encuentra dado de alta.");
+		}
 		
 	}
 	
@@ -252,6 +257,7 @@ public class MenuAlumnos{
 		
 	}
 	
+	
 	/*** Main ***/
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -279,7 +285,6 @@ public class MenuAlumnos{
 			case 1:
 				
 				MenuAlumnos.darAlta(listaAlumnos);
-				System.out.println("Se ha dado de alta ha el alumno.");
 				
 				System.out.println("\n");
 				break;

@@ -94,4 +94,17 @@ public class Alumno {
 		}	
 		return igual; 
 	}
+	
+	//Metodo comprobar si existe el alumno - Autor: Alejandro Fandila Cano
+		public boolean existe(ArrayList<Alumno> alumnos) {
+			boolean existe = false;
+			
+			for(int i = 0;i < alumnos.size() && existe == false;i++) {
+				if(this.equals(alumnos.get(i))) {
+					existe = true;
+				}
+			}
+			
+			return existe;
+		}
 }
