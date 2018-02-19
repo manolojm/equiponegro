@@ -21,6 +21,80 @@ public class MenuAlumnos {
 		System.out.println("12 para listar faltas");
 		System.out.println("13 para salir");
 	}
+	
+	/*** Método devolverPosicion - Autor: Antonio Mirallas ***/
+	// Este método está hecho para devolver la posición de un alumno recibiendo su DNI. En caso de no encontrar ese DNI lanzará una excepción
+	public static int devolverPosicion(ArrayList<Alumno> lista, String dni) throws Exception{
+		
+		boolean encontrado = false;
+		int posicion = 0;
+		
+		while(posicion < lista.size() && !encontrado) { // Mientras no encuentre ni recorra todo el array sigue comprobando
+			
+				if(lista.get(posicion).getDni().equals(dni)) // Condicional para encontrar
+					
+					encontrado = true;
+				
+				else
+					
+					posicion++;
+		}
+		
+		if(!encontrado) // Si no encontramos sacamos una excepción
+			
+			throw new Exception("Error, Dni incorrecto");
+		
+		return posicion;
+
+	}
+	
+	/*** Método devolverCalificación - Antonio Mirallas ***/
+	// Método para devolver la posición de una calificación recibiendo la posición del alumno y el nombre de la asignatura. En caso de no encontrar dicha asignatura lanza una excepción
+	public static int devolverCalificacion(ArrayList<Alumno> lista, int posAlumno, String asig) throws Exception{
+		
+		
+		int posCal = 0;
+		boolean encontrado = false;
+		
+		// Mientras no excedamos el vector de asignaturas del alumno en posAlumno y no encontremos la asignatura continuamos el bucle
+		while(posCal < lista.get(posAlumno).getNotas().size() && !encontrado) { 
+			
+			Calificacion calificacion = lista.get(posAlumno).getNotas().get(posCal); // Obtenemos la nota en la posición posCal del Alumno posAlumno
+			
+			if(calificacion.getAsignatura().equals(asig))
+				
+				encontrado = true;
+			
+			else
+				
+				posCal++;
+		}
+		
+		if(!encontrado) // Si no hemos encontrado lanzamos una excepción
+			
+			throw new Exception("Error, asignatura incorrecta");
+		
+		return posCal; // Devolvemos la posición de la asignatura buscada en el alumno de la posición posAlumno
+			
+	}
+	
+	/*** Método comprobarNota - Antonio Mirallas ***/
+	// Método para comprobar si una nota introducida es correcta
+	public static boolean comprobarNota(String nota) throws Exception {
+		
+		boolean error = false;
+		int n = Integer.parseInt(nota); // Convertimos nota en entero para comprobar
+		
+		if(!nota.equals("NE") && (n < 0 || n > 10))
+			
+			error = true;
+		
+		if(error) // Si hay error lanzamos excepción
+			
+			throw new Exception("Error, nota incorrecta");
+		
+		return error;
+	}
 
 	/*** Metodo 1: Dar de alta - Autor: Alejandro Fandila Cano. ***/
 	public static void darAlta(ArrayList<Alumno> lista) {
@@ -346,37 +420,80 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
-	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos) {
-
+	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos){
+		
+		// Declaración de variables
 		Scanner entrada = new Scanner(System.in);
-
-		int numeroAlumno;
+		int posicion = 0, numContinuar = 2;
+		String dni = "";
 		String asig, calif;
-
-		System.out.println("Introduzca el número de lista del alumno: ");
-		numeroAlumno = entrada.nextInt();
-
-		Alumno alumno = listaAlumnos.get(numeroAlumno);
-
-		entrada.nextLine();
-
-		System.out.println("Introduzca la asignatura: ");
-		asig = entrada.nextLine();
-
-		System.out.println("Introduzca la calificación: ");
-		calif = entrada.nextLine();
-
-		ArrayList<Calificacion> calificaciones = alumno.getNotas();
-
-		Calificacion calificacion = new Calificacion("0");
-
-		calificacion.setNota(calif); // ¿Poner un constructor con los dos atriutos?
-
-		calificacion.setAsignatura(asig);
-
-		calificaciones.add(calificacion);
-
-		alumno.cambiarNotas(calificaciones);
+		boolean error = false;
+		
+		do { // Bucle para repetir proceso de calificar
+		
+			do { // Bucle para la correcta introducción del DNI
+				
+				System.out.println("Introduzca el DNI del alumno: ");
+				dni = entrada.nextLine();
+				
+				try { // En caso de que el DNI recibido no coincida con ningún alumno
+					
+					error = false;
+					posicion = devolverPosicion(listaAlumnos, dni);
+					
+				}catch(Exception ex) {
+					
+					error = true;
+					System.out.println(ex.getMessage());
+				}
+				
+			}while(error);
+	
+			System.out.println("Introduzca la asignatura: ");
+			asig = entrada.nextLine();
+			
+			error = false;
+			
+			do { // Bluce para la correcta introducción de la nota
+	
+				System.out.println("Introduzca la calificación: ");
+				calif = entrada.nextLine();
+				
+				try { // En el caso de que se haya introducido mal la nota
+					
+					error = comprobarNota(calif);
+					
+				}catch(Exception ex) {
+					
+					error = true;
+					System.out.println(ex.getMessage());
+				}
+			
+			}while(error);
+			
+			// Introducimos la nueva calificación
+			ArrayList<Calificacion> calificaciones = listaAlumnos.get(posicion).getNotas();
+	
+			Calificacion calificacion = new Calificacion("0");
+	
+			calificacion.setNota(calif); 
+	
+			calificacion.setAsignatura(asig);
+	
+			calificaciones.add(calificacion);
+	
+			listaAlumnos.get(posicion).cambiarNotas(calificaciones);
+			
+			do { // Bucle para decidir si continuar o no
+				
+				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				numContinuar = entrada.nextInt();
+				
+			}while(numContinuar != 1 && numContinuar != 2);
+			
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+			
+		}while(numContinuar != 2);
 	}
 
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
@@ -568,9 +685,7 @@ public class MenuAlumnos {
 
 			default:
 
-				if (opcion < 1 || opcion > 13)
-
-					throw new Exception("Error. Opción incorrecta");
+				System.out.println("Opción incorrecta");
 
 				break;
 			}
