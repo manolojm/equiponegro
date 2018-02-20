@@ -102,7 +102,8 @@ public class MenuAlumnos {
 		Scanner entrada = new Scanner(System.in);
 
 		Alumno nuevo = new Alumno(null);
-
+		
+		//Setteamos todos los campos, no es necesario capturar excepciones.
 		System.out.println("Introduzca el nombre del alumno:");
 		nuevo.setNombre(entrada.nextLine());
 
@@ -117,7 +118,8 @@ public class MenuAlumnos {
 
 		System.out.println("Introduzca el email del alumno:");
 		nuevo.setEmail(entrada.nextLine());
-
+		
+		//Tan solo añadiremos al alumno en caso de que este no exista.
 		if (nuevo.existe(lista) == false) {
 			lista.add(nuevo);
 			System.out.println("Se ha dado de alta al alumno.");
@@ -135,7 +137,7 @@ public class MenuAlumnos {
 
 		Scanner entrada = new Scanner(System.in);
 
-		System.out.println("¿Introduzca a quien desea dar de baja?:");
+		System.out.println("Introduzca a quien desea dar de baja:");
 		MenuAlumnos.listarAlumnos(lista);
 
 		// En caso de que no se introduzca correctamente, el metodo no hara nada.
