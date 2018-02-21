@@ -114,6 +114,7 @@ public class MenuAlumnos {
 
 		Alumno nuevo = new Alumno(null);
 
+		// Setteamos todos los campos, no es necesario capturar excepciones.
 		System.out.println("Introduzca el nombre del alumno:");
 		nuevo.setNombre(entrada.nextLine());
 
@@ -130,6 +131,9 @@ public class MenuAlumnos {
 		nuevo.setEmail(entrada.nextLine());
 
 		if (devolverPosicion(lista, nuevo.getDni()) == -1) {
+
+		// Tan solo añadiremos al alumno en caso de que este no exista.
+
 			lista.add(nuevo);
 			System.out.println("Se ha dado de alta al alumno.");
 		} else {
@@ -146,7 +150,8 @@ public class MenuAlumnos {
 
 		Scanner entrada = new Scanner(System.in);
 
-		System.out.println("Introduzca a quién desea dar de baja: ");
+		System.out.println("Introduzca a quien desea dar de baja:");
+
 		MenuAlumnos.listarAlumnos(lista);
 
 		// En caso de que no se introduzca correctamente, el metodo no hará nada.
@@ -292,7 +297,7 @@ public class MenuAlumnos {
 
 	/*** Método 5: Matricular alumnos - David ***/
 
-	public static void matricularAlumnos(ArrayList<Alumno> listaAlumnos) {
+	public static void matricularAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		Scanner entrada = new Scanner(System.in);
 
@@ -353,14 +358,14 @@ public class MenuAlumnos {
 
 		} else {
 
-			System.out.println("El alumno ya estaba matriculado en " + asignatura);
+			throw new Exception("El alumno ya estaba matriculado en " + asignatura);
 		}
 
 	}
 
 	/*** Método 6: Dar de baja de una asignatura - David ***/
 
-	public static void bajaAsignatura(ArrayList<Alumno> listaAlumnos) {
+	public static void bajaAsignatura(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		Scanner entrada = new Scanner(System.in);
 
@@ -424,7 +429,7 @@ public class MenuAlumnos {
 
 		} else {
 
-			System.out.println("El alumno no estaba matriculado la asignatura " + asignatura);
+			throw new Exception("El alumno no estaba matriculado la asignatura " + asignatura);
 		}
 
 	}
@@ -588,7 +593,7 @@ public class MenuAlumnos {
 
 			for (int j = 0; j < listaAlumnos.get(posicion).getNotas().size(); j++) {
 
-				System.out.println("Asignatura: " + listaAlumnos.get(posicion).getNotas().get(j).getAsignatura());
+				System.out.println("\nAsignatura: " + listaAlumnos.get(posicion).getNotas().get(j).getAsignatura());
 				System.out.println("Nota: " + listaAlumnos.get(posicion).getNotas().get(j).getNota());
 
 			}
@@ -705,7 +710,12 @@ public class MenuAlumnos {
 			case 5:
 
 				// Llamamos al metodo
-				matricularAlumnos(listaAlumnos);
+				try {
+					matricularAlumnos(listaAlumnos);
+				} catch (Exception ex) {
+
+					System.out.println(ex.getMessage());
+				}
 
 				// Salto de linea
 				System.out.println();
@@ -714,9 +724,12 @@ public class MenuAlumnos {
 
 			case 6:
 
-				// Llamamos al metodo
-				bajaAsignatura(listaAlumnos);
+				try {
+					bajaAsignatura(listaAlumnos);
+				} catch (Exception ex) {
 
+					System.out.println(ex.getMessage());
+				}
 				// Salto de linea
 				System.out.println();
 
