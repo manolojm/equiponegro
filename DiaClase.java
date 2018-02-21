@@ -9,7 +9,8 @@ public class DiaClase {
 	// Constructor con parametros FechaDia
 	public DiaClase(Fecha dia) {
 		this.dia = dia;
-		Horario sesiones = new Horario();
+		Horario horario = new Horario();
+		this.sesiones = horario;
 	}
 
 	// Metodos

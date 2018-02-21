@@ -101,7 +101,7 @@ public class Fecha {
 	// Imprimir fecha
 	public void imprimeFecha() {
 
-		System.out.println(this.year + "/" + this.mes + "/" + this.year);
+		System.out.println(this.dia + "/" + this.mes + "/" + this.year);
 	}
 
 	private boolean esBisiesto(int year) { // Comprobar si es año bisiesto. Método privado

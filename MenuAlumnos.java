@@ -650,8 +650,8 @@ public class MenuAlumnos {
 
 		// Variables
 		ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
-		boolean salir = false;
-		int opcion;
+		boolean salir = false, opcionCorrecta;
+		int opcion = 0;
 
 		// Pruebas
 		Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
@@ -661,7 +661,17 @@ public class MenuAlumnos {
 
 			mostrarMenu();
 
-			opcion = entrada.nextInt();
+			// Excepcion para obtener una opcion valida - Alejandro Fandila Cano.
+			do {
+				try {
+					opcion = entrada.nextInt();
+					} catch (InputMismatchException ex) {
+						opcionCorrecta = false;
+						System.out.println("No se ha seleccionado correctamente la opcion.");
+						System.out.println("Vuelva a introducirla:");
+					}
+					opcionCorrecta = true;
+			} while (opcionCorrecta == false);
 
 			entrada.nextLine();
 
