@@ -21,78 +21,89 @@ public class MenuAlumnos {
 		System.out.println("12 para listar faltas");
 		System.out.println("13 para salir");
 	}
-	
+
 	/*** Método devolverPosicion - Autor: Antonio Mirallas ***/
-	// Este método está hecho para devolver la posición de un alumno recibiendo su DNI. En caso de no encontrar ese DNI lanzará una excepción
-	public static int devolverPosicion(ArrayList<Alumno> lista, String dni) throws Exception{
-		
+	// Este método está hecho para devolver la posición de un alumno recibiendo su
+	// DNI. En caso de no encontrar ese DNI devolverá -1
+	public static int devolverPosicion(ArrayList<Alumno> lista, String dni) {
+
 		boolean encontrado = false;
 		int posicion = 0;
-		
-		while(posicion < lista.size() && !encontrado) { // Mientras no encuentre ni recorra todo el array sigue comprobando
-			
-				if(lista.get(posicion).getDni().equals(dni)) // Condicional para encontrar
-					
-					encontrado = true;
-				
-				else
-					
-					posicion++;
+
+		while (posicion < lista.size() && !encontrado) { // Mientras no encuentre ni recorra todo el array sigue
+															// comprobando
+
+			if (lista.get(posicion).getDni().equals(dni)) // Condicional para encontrar
+
+				encontrado = true;
+
+			else
+
+				posicion++;
 		}
-		
-		if(!encontrado) // Si no encontramos sacamos una excepción
-			
-			throw new Exception("Error, Dni incorrecto");
-		
+
+		if (!encontrado) // Si no está devuelve -1
+
+			posicion = -1;
+
 		return posicion;
 
 	}
-	
+
 	/*** Método devolverCalificación - Antonio Mirallas ***/
-	// Método para devolver la posición de una calificación recibiendo la posición del alumno y el nombre de la asignatura. En caso de no encontrar dicha asignatura lanza una excepción
-	public static int devolverCalificacion(ArrayList<Alumno> lista, int posAlumno, String asig) throws Exception{
-		
-		
+	// Método para devolver la posición de una calificación recibiendo la posición
+	// del alumno y el nombre de la asignatura. En caso de no encontrar dicha
+	// asignatura devuelve -1
+	public static int devolverCalificacion(ArrayList<Alumno> lista, int posAlumno, String asig) {
+
 		int posCal = 0;
 		boolean encontrado = false;
-		
-		// Mientras no excedamos el vector de asignaturas del alumno en posAlumno y no encontremos la asignatura continuamos el bucle
-		while(posCal < lista.get(posAlumno).getNotas().size() && !encontrado) { 
-			
-			Calificacion calificacion = lista.get(posAlumno).getNotas().get(posCal); // Obtenemos la nota en la posición posCal del Alumno posAlumno
-			
-			if(calificacion.getAsignatura().equals(asig))
-				
+
+		// Mientras no excedamos el vector de asignaturas del alumno en posAlumno y no
+		// encontremos la asignatura continuamos el bucle
+		while (posCal < lista.get(posAlumno).getNotas().size() && !encontrado) {
+
+			Calificacion calificacion = lista.get(posAlumno).getNotas().get(posCal); // Obtenemos la nota en la posición
+																						// posCal del Alumno posAlumno
+
+			if (calificacion.getAsignatura().equals(asig))
+
 				encontrado = true;
-			
+
 			else
-				
+
 				posCal++;
 		}
-		
-		if(!encontrado) // Si no hemos encontrado lanzamos una excepción
-			
-			throw new Exception("Error, asignatura incorrecta");
-		
-		return posCal; // Devolvemos la posición de la asignatura buscada en el alumno de la posición posAlumno
-			
+
+		if (!encontrado) // Si no está devuelve -1
+
+			posCal = -1;
+
+		return posCal; // Devolvemos la posición de la asignatura buscada en el alumno de la posición
+						// posAlumno
+
 	}
-	
+
 	/*** Método comprobarNota - Antonio Mirallas ***/
 	// Método para comprobar si una nota introducida es correcta
 	public static boolean comprobarNota(String nota) throws Exception {
-		
+
 		boolean error = false;
-		int n = Integer.parseInt(nota); // Convertimos nota en entero para comprobar
 		
-		if(!nota.equals("NE") && (n < 0 || n > 10))
+		if(!nota.equals("NE") && !nota.equals("ne")) {
 			
-			error = true;
+			int n = Integer.parseInt(nota); // Convertimos nota en entero para comprobar
+	
+			if (n < 0 || n > 10)
+	
+				error = true;
 		
-		if(error) // Si hay error lanzamos excepción
-			
+		}
+
+		if (error) // Si hay error lanzamos excepción
+
 			throw new Exception("Error, nota incorrecta");
-		
+
 		return error;
 	}
 
@@ -118,7 +129,7 @@ public class MenuAlumnos {
 		System.out.println("Introduzca el email del alumno:");
 		nuevo.setEmail(entrada.nextLine());
 
-		if (nuevo.existe(lista) == false) {
+		if (devolverPosicion(lista, nuevo.getDni()) == -1) {
 			lista.add(nuevo);
 			System.out.println("Se ha dado de alta al alumno.");
 		} else {
@@ -135,10 +146,10 @@ public class MenuAlumnos {
 
 		Scanner entrada = new Scanner(System.in);
 
-		System.out.println("¿Introduzca a quien desea dar de baja?:");
+		System.out.println("Introduzca a quién desea dar de baja: ");
 		MenuAlumnos.listarAlumnos(lista);
 
-		// En caso de que no se introduzca correctamente, el metodo no hara nada.
+		// En caso de que no se introduzca correctamente, el metodo no hará nada.
 		do {
 			try {
 				numero = true;
@@ -160,10 +171,10 @@ public class MenuAlumnos {
 
 	/*** Metodo 3: Listar Alumnos - Manolo ***/
 	public static void listarAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
-		
-		// Excepcion 
+
+		// Excepcion
 		if (listaAlumnos.size() < 1) {
-			throw new Exception("Error: no hay alumnos en la lista");	
+			throw new Exception("Error: no hay alumnos en la lista");
 		}
 
 		// Ciclo para sacar los alumnos
@@ -179,11 +190,11 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 4: Modificar Alumnos - Manolo ***/
-	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos){
+	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) {
 
 		// Variables
 		Scanner entrada = new Scanner(System.in);
-		int numerote = 1, alumnoModifico, numerito;;
+		int numerote = 1, alumnoModifico, numerito;
 
 		do {
 
@@ -194,7 +205,6 @@ public class MenuAlumnos {
 			Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
 
 			do {
-
 
 				// Menu para elegir que se desea modificar
 				System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
@@ -275,7 +285,7 @@ public class MenuAlumnos {
 			do {
 				System.out.println("Desea modificar otro alumno? (1 - Si / 2 - No)");
 				numerote = entrada.nextInt();
-			} while (numerote > 2 || numerote < 1); // Fin 
+			} while (numerote > 2 || numerote < 1); // Fin
 
 		} while (numerote == 1); // Fin
 	}
@@ -420,135 +430,211 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
-	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos){
-		
+	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos) {
+
 		// Declaración de variables
 		Scanner entrada = new Scanner(System.in);
-		int posicion = 0, numContinuar = 2;
+		int posicion = 0, numContinuar = 2, elegir;
 		String dni = "";
 		String asig, calif;
 		boolean error = false;
-		
+
 		do { // Bucle para repetir proceso de calificar
-		
-			do { // Bucle para la correcta introducción del DNI
+
+			do {
+
+				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+
+				elegir = entrada.nextInt();
 				
-				System.out.println("Introduzca el DNI del alumno: ");
-				dni = entrada.nextLine();
-				
-				try { // En caso de que el DNI recibido no coincida con ningún alumno
-					
-					error = false;
+				entrada.nextLine(); // Vaciamos el buffer
+
+				if (elegir != 1 && elegir != 2)
+
+					System.out.println("Elección incorrecta");
+
+			} while (elegir != 1 && elegir != 2);
+
+			if (elegir == 1) { // Elegir por DNI
+
+				do { // Bucle para la correcta introducción del DNI
+
+					System.out.println("Introduzca el DNI del alumno: ");
+					dni = entrada.nextLine();
+
 					posicion = devolverPosicion(listaAlumnos, dni);
-					
-				}catch(Exception ex) {
-					
-					error = true;
-					System.out.println(ex.getMessage());
-				}
+
+					if (posicion == -1)
+
+						System.out.println("DNI incorrecto");
+
+				} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
 				
-			}while(error);
-	
+			}
+
+			else // Elegir por lista
+
+				do {
+
+					System.out.println("Introduzca la posición: ");
+					posicion = entrada.nextInt();
+
+					if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+
+						System.out.println("Posición incorrecta");
+
+				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
+			
+			entrada.nextLine(); // Vaciamos el buffer
+
 			System.out.println("Introduzca la asignatura: ");
 			asig = entrada.nextLine();
-			
-			error = false;
-			
+
 			do { // Bluce para la correcta introducción de la nota
-	
+
 				System.out.println("Introduzca la calificación: ");
 				calif = entrada.nextLine();
-				
+
 				try { // En el caso de que se haya introducido mal la nota
-					
+
 					error = comprobarNota(calif);
-					
-				}catch(Exception ex) {
-					
+
+				} catch (Exception ex) {
+
 					error = true;
 					System.out.println(ex.getMessage());
 				}
-			
-			}while(error);
-			
+
+			} while (error);
+
 			// Introducimos la nueva calificación
 			ArrayList<Calificacion> calificaciones = listaAlumnos.get(posicion).getNotas();
-	
+
 			Calificacion calificacion = new Calificacion("0");
-	
-			calificacion.setNota(calif); 
-	
+
+			calificacion.setNota(calif);
+
 			calificacion.setAsignatura(asig);
-	
+
 			calificaciones.add(calificacion);
-	
+
 			listaAlumnos.get(posicion).cambiarNotas(calificaciones);
-			
+
 			do { // Bucle para decidir si continuar o no
-				
+
 				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
 				numContinuar = entrada.nextInt();
-				
-			}while(numContinuar != 1 && numContinuar != 2);
-			
+
+			} while (numContinuar != 1 && numContinuar != 2);
+
 			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
-			
-		}while(numContinuar != 2);
+
+		} while (numContinuar != 2);
 	}
 
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
 	public static void mostrarCalificaciones(ArrayList<Alumno> listaAlumnos) {
 
 		Scanner entrada = new Scanner(System.in);
+		String dni;
+		int posicion, numContinuar, elegir;
+		boolean error = false;
 
-		int numeroAlumno;
+		do { // Bucle para repetir proceso de calificar
 
-		System.out.println("Introduzca el número de lista del alumno: ");
-		numeroAlumno = entrada.nextInt();
+			do {
 
-		ArrayList<Calificacion> calificaciones = listaAlumnos.get(numeroAlumno).getNotas();
+				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
-		System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(numeroAlumno).getDni() + " es ");
+				elegir = entrada.nextInt();
 
-		for (int j = 0; j < calificaciones.size(); j++) {
+				if (elegir != 1 && elegir != 2)
 
-			System.out.println("Asignatura: " + calificaciones.get(j).getAsignatura());
-			System.out.println("Nota: " + calificaciones.get(j).getNota());
+					System.out.println("Elección incorrecta");
 
-		}
+			} while (elegir != 1 && elegir != 2);
+
+			if (elegir == 1) // Elegir por DNI
+
+				do { // Bucle para la correcta introducción del DNI
+					
+					entrada.nextLine(); // Vaciamos el buffer
+
+					System.out.println("Introduzca el DNI del alumno: ");
+					dni = entrada.nextLine();
+
+					posicion = devolverPosicion(listaAlumnos, dni);
+
+					if (posicion == -1)
+
+						System.out.println("DNI incorrecto");
+
+				} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
+
+			else // Elegir por lista
+
+				do {
+
+					System.out.println("Introduzca la posición: ");
+					posicion = entrada.nextInt();
+
+					if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+
+						System.out.println("Posición incorrecta");
+
+				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
+
+			System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(posicion).getDni() + " es ");
+
+			for (int j = 0; j < listaAlumnos.get(posicion).getNotas().size(); j++) {
+
+				System.out.println("Asignatura: " + listaAlumnos.get(posicion).getNotas().get(j).getAsignatura());
+				System.out.println("Nota: " + listaAlumnos.get(posicion).getNotas().get(j).getNota());
+
+			}
+
+			do { // Bucle para decidir si continuar o no
+
+				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				numContinuar = entrada.nextInt();
+
+			} while (numContinuar != 1 && numContinuar != 2);
+
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+
+		} while (numContinuar != 2);
 	}
-	
+
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
-		
+
 		// Variables
 		Scanner entrada = new Scanner(System.in);
 		Alumno alumnoAListar;
 		int numeroLista, contadorLista = 0;
-		
-		// Excepcion 
+
+		// Excepcion
 		if (listaAlumnos.size() < 1) {
-			throw new Exception("Error: no hay alumnos en la lista");	
+			throw new Exception("Error: no hay alumnos en la lista");
 		}
-		
+
 		// Ciclo para sacar los alumnos
 		for (int i = 0; i < listaAlumnos.size(); i++) {
-			
+
 			alumnoAListar = listaAlumnos.get(i);
-			
-			
+
 			do {
-				System.out.println("Se encuentra " + alumnoAListar.getNombre() + " - " 
-						+ alumnoAListar.getDni() + " ?\n1 - Si\n2 - No\n");
+				System.out.println("Se encuentra " + alumnoAListar.getNombre() + " - " + alumnoAListar.getDni()
+						+ " ?\n1 - Si\n2 - No\n");
 				numeroLista = entrada.nextInt();
-			} while((numeroLista < 1) || (numeroLista > 2));
-			
+			} while ((numeroLista < 1) || (numeroLista > 2));
+
 			if (numeroLista == 2) {
-				contadorLista ++;
+				contadorLista++;
 			}
 		}
-		
-		//Informacion
+
+		// Informacion
 		System.out.println("Han faltado " + contadorLista + " alumno/s");
 	}
 
@@ -597,17 +683,16 @@ public class MenuAlumnos {
 				// Llamamos al metodo
 				try {
 					listarAlumnos(listaAlumnos);
-				} catch (Exception ex){
+				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
-					
+
 				// Salto de linea
 				System.out.println();
 
 				break;
 
 			case 4: // Manolo
-
 
 				// Llamamos al metodo
 				modificarAlumnos(listaAlumnos);
@@ -624,7 +709,7 @@ public class MenuAlumnos {
 
 				// Salto de linea
 				System.out.println();
-				
+
 				break;
 
 			case 6:
@@ -634,7 +719,7 @@ public class MenuAlumnos {
 
 				// Salto de linea
 				System.out.println();
-				
+
 				break;
 
 			case 7:
@@ -658,14 +743,14 @@ public class MenuAlumnos {
 				break;
 
 			case 11: // Manolo
-				
+
 				// Llamamos al metodo
 				try {
 					pasarLista(listaAlumnos);
-				} catch (Exception ex){
+				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
-				
+
 				// Salto de linea
 				System.out.println();
 
