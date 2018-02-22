@@ -304,117 +304,62 @@ public class MenuAlumnos {
 		// Variables
 
 		int idAlumno = 0;
-		int numContinuar = 2;
-		int elegir = 0;
-		String dni = "";
 		String asignatura = "";
 		boolean encontrado = false;
 
-		do { // Bucle para repetir proceso de calificar
+		// Pedimos el alumno al que vamos a matricular
 
-			do {
+		System.out.println("Introduzca el número del alumno que quiere matricular: ");
+		idAlumno = entrada.nextInt();
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+		// Buscamos al alumno que ha introducido el usuario
 
-				elegir = entrada.nextInt();
+		Alumno alumno = listaAlumnos.get(idAlumno);
 
-				if (elegir != 1 && elegir != 2)
+		// Declaramos un ArrayList de Calificación y declaramos su constructor
 
-					System.out.println("Elección incorrecta");
+		ArrayList<Calificacion> calificaciones = alumno.getNotas();
 
-			} while (elegir != 1 && elegir != 2);
+		Calificacion nuevaAsignatura = new Calificacion(asignatura);
 
-			if (elegir == 1) { // Elegir por DNI
+		// Limpiamos el buffer y pedimos la asignatura
 
-				do { // Bucle para la correcta introducción del DNI
+		entrada.nextLine();
 
-					entrada.nextLine(); // Vaciamos el buffer
+		System.out.println("Introduzca el nombre de la asignatura de la que va a ser matriculado el alumno: ");
+		asignatura = entrada.nextLine();
 
-					System.out.println("Introduzca el DNI del alumno: ");
-					dni = entrada.nextLine();
+		// Comprobamos a través del método equals de la clase Calificación que la
+		// asignatura introducida por el usuario no ha sido introducida anteriormente
 
-					idAlumno = devolverPosicion(listaAlumnos, dni);
+		for (int i = 0; i < calificaciones.size(); i++) {
 
-					if (idAlumno == -1)
+			if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
 
-						System.out.println("DNI incorrecto");
-
-				} while (idAlumno == -1); // Si ha devuelto -1 es que no lo ha encontrado
-
+				encontrado = true;
 			}
+		}
 
-			else // Elegir por lista
+		// Si la asignatura no se había introducido anteriormente lo añade correctamente
 
-				do {
+		if (!encontrado) {
 
-					System.out.println("Introduzca la posición: ");
-					idAlumno = entrada.nextInt();
+			calificaciones.add(nuevaAsignatura);
+			nuevaAsignatura.setAsignatura(asignatura);
 
-					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
-
-						System.out.println("Posición incorrecta");
-
-					entrada.nextLine(); // Vaciamos el buffer
-
-				} while (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1);
-
-			// Buscamos al alumno que ha introducido el usuario
-
-			Alumno alumno = listaAlumnos.get(idAlumno);
-
-			// Declaramos un ArrayList de Calificación y declaramos su constructor
-
-			ArrayList<Calificacion> calificaciones = alumno.getNotas();
-
-			Calificacion nuevaAsignatura = new Calificacion(asignatura);
-
-			// Pedimos la asignatura
-
-			System.out.println("Introduzca el nombre de la asignatura de la que va a ser matriculado el alumno: ");
-			asignatura = entrada.nextLine();
-
-			// Comprobamos a través del método equals de la clase Calificación que la
-			// asignatura introducida por el usuario no ha sido introducida anteriormente
+			System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
+					+ " ha sido correctamente matriculado en " + asignatura
+					+ ". Está matriculado en las siguientes asignaturas:");
 
 			for (int i = 0; i < calificaciones.size(); i++) {
 
-				if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
-
-					encontrado = true;
-				}
+				System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
 			}
 
-			// Si la asignatura no se había introducido anteriormente lo añade correctamente
+		} else {
 
-			if (!encontrado) {
-
-				calificaciones.add(nuevaAsignatura);
-				nuevaAsignatura.setAsignatura(asignatura);
-
-				System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
-						+ " ha sido correctamente matriculado en " + asignatura
-						+ ". Está matriculado en las siguientes asignaturas:");
-
-				for (int i = 0; i < calificaciones.size(); i++) {
-
-					System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
-				}
-
-			} else {
-
-				throw new Exception("El alumno ya estaba matriculado en " + asignatura);
-			}
-
-			do { // Bucle para decidir si continuar o no
-
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
-				numContinuar = entrada.nextInt();
-
-			} while (numContinuar != 1 && numContinuar != 2);
-
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteración
-
-		} while (numContinuar != 2);
+			throw new Exception("El alumno ya estaba matriculado en " + asignatura);
+		}
 
 	}
 
@@ -427,123 +372,67 @@ public class MenuAlumnos {
 		// Variables
 
 		int idAlumno = 0;
-		int numContinuar = 2;
-		int elegir = 0;
-		int aux = 0;
-		String dni = "";
 		String asignatura = "";
 		boolean encontrado = false;
+		int aux = 0;
 
-		do { // Bucle para repetir proceso de calificar
+		// Pedimos el alumno al que vamos a matricular
 
-			do {
+		System.out.println("Introduzca el número del alumno que quiere desmatricular: ");
+		idAlumno = entrada.nextInt();
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+		// Buscamos al alumno que ha introducido el usuario
 
-				elegir = entrada.nextInt();
+		Alumno alumno = listaAlumnos.get(idAlumno);
 
-				if (elegir != 1 && elegir != 2)
+		// Declaramos un ArrayList de Calificación y declaramos su constructor
 
-					System.out.println("Elección incorrecta");
+		ArrayList<Calificacion> calificaciones = alumno.getNotas();
 
-			} while (elegir != 1 && elegir != 2);
+		Calificacion quitarAsignatura = new Calificacion(asignatura);
 
-			if (elegir == 1) { // Elegir por DNI
+		// Limpiamos el buffer y pedimos la asignatura
 
-				do { // Bucle para la correcta introducción del DNI
+		entrada.nextLine();
 
-					entrada.nextLine(); // Vaciamos el buffer
+		System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
+		asignatura = entrada.nextLine();
 
-					System.out.println("Introduzca el DNI del alumno: ");
-					dni = entrada.nextLine();
+		// Comprobamos a través del método equals de la clase Calificación que el alumno
+		// está matriculado en esa asignatura
 
-					idAlumno = devolverPosicion(listaAlumnos, dni);
+		for (int i = 0; i < calificaciones.size(); i++) {
 
-					if (idAlumno == -1)
+			if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
 
-						System.out.println("DNI incorrecto");
-
-				} while (idAlumno == -1); // Si ha devuelto -1 es que no lo ha encontrado
-
+				encontrado = true;
+				aux = i; // Almacenamos la posición en la que se encuentra la asignatura en una variable
+							// auxiliar
 			}
+		}
 
-			else // Elegir por lista
+		// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
+		// que se encontraba (gracias a aux)
 
-				do {
+		if (encontrado) {
 
-					System.out.println("Introduzca la posición: ");
-					idAlumno = entrada.nextInt();
+			calificaciones.remove(aux);
 
-					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
-
-						System.out.println("Posición incorrecta");
-
-					entrada.nextLine(); // Vaciamos el buffer
-
-				} while (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1);
-
-			// Buscamos al alumno que ha introducido el usuario
-
-			Alumno alumno = listaAlumnos.get(idAlumno);
-
-			// Declaramos un ArrayList de Calificación y declaramos su constructor
-
-			ArrayList<Calificacion> calificaciones = alumno.getNotas();
-
-			Calificacion quitarAsignatura = new Calificacion(asignatura);
-
-			// Pedimos la asignatura
-
-			System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
-			asignatura = entrada.nextLine();
-
-			// Comprobamos a través del método equals de la clase Calificación que el alumno
-			// está matriculado en esa asignatura
+			System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
+					+ " ha sido correctamente desmatriculado de " + asignatura
+					+ ". Está matriculado en las siguientes asignaturas:");
 
 			for (int i = 0; i < calificaciones.size(); i++) {
 
-				if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
-
-					encontrado = true;
-					aux = i; // Almacenamos la posición en la que se encuentra la asignatura en una variable
-								// auxiliar
-				}
+				System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
 			}
 
-			// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
-			// que se encontraba (gracias a aux)
+		} else {
 
-			if (encontrado) {
-
-				calificaciones.remove(aux);
-
-				System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
-						+ " ha sido correctamente desmatriculado de " + asignatura
-						+ ". Está matriculado en las siguientes asignaturas:");
-
-				for (int i = 0; i < calificaciones.size(); i++) {
-
-					System.out.println("Asignatura " + i + ": " + calificaciones.get(i).getAsignatura());
-				}
-
-			} else {
-
-				throw new Exception("El alumno no estaba matriculado en la asignatura " + asignatura);
-			}
-
-			do { // Bucle para decidir si continuar o no
-
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
-				numContinuar = entrada.nextInt();
-
-			} while (numContinuar != 1 && numContinuar != 2);
-
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteración
-
-		} while (numContinuar != 2);
+			throw new Exception("El alumno no estaba matriculado la asignatura " + asignatura);
+		}
 
 	}
-
 
 	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
 	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos) {
@@ -720,6 +609,74 @@ public class MenuAlumnos {
 
 		} while (numContinuar != 2);
 	}
+	
+	// Metodo 9: Poner falta dia completo
+		public static void faltaDiaCompleto(ArrayList<Alumno> alumnos) throws Exception {
+
+			Scanner entrada = new Scanner(System.in);
+
+			// Declaracion de variables
+			int seleccionar, dia, mes, ano;
+			ArrayList<DiaClase> faltas = new ArrayList();
+
+			// Pedimos al usuario que introduzca la fecha
+			System.out.println("Introduzca la fecha");
+			System.out.println("1. Dia:");
+			dia = entrada.nextInt();
+			System.out.println("2. Mes:");
+			mes = entrada.nextInt();
+			System.out.println("3. Año:");
+			ano = entrada.nextInt();
+
+			// Creamos / Setteamos fecha, y la añadimos a falta
+			Fecha fecha = new Fecha(dia, mes, ano);
+			DiaClase falta = new DiaClase(fecha);
+			falta.getHorario().faltaDiaEntero();
+
+			// Seleccionamos al alumno al que vamos a poner falta
+			System.out.println("¿Que alumno ha faltado el dia completo?:");
+			MenuAlumnos.listarAlumnos(alumnos);
+			seleccionar = entrada.nextInt();
+
+			// Cambiamos le añadimos a las faltas del alumno 6 mas
+			alumnos.get(seleccionar).getFaltas().add(falta);
+
+		}
+
+		// Metodo 10:Poner falta hora
+		public static void faltaHora(ArrayList<Alumno> alumnos) throws Exception {
+
+			Scanner entrada = new Scanner(System.in);
+
+			// Declaracion de variables
+			int seleccionar, dia, mes, ano;
+			;
+			ArrayList<DiaClase> faltas = new ArrayList();
+
+			// Pedimos al usuario que introduzca la fecha
+			System.out.println("Introduzca la fecha");
+			System.out.println("1. Dia:");
+			dia = entrada.nextInt();
+			System.out.println("2. Mes:");
+			mes = entrada.nextInt();
+			System.out.println("3. Año:");
+			ano = entrada.nextInt();
+
+			// Creamos / Setteamos fecha, y la añadimos a falta
+			Fecha fecha = new Fecha(dia, mes, ano);
+			DiaClase falta = new DiaClase(fecha);
+			System.out.println("Introduzca la sesion en la que falta el alumno:");
+			falta.getHorario().faltaHora(entrada.nextInt());
+
+			// Seleccionamos al alumno al que vamos a poner falta
+			System.out.println("¿Que alumno ha faltado?:");
+			MenuAlumnos.listarAlumnos(alumnos);
+			seleccionar = entrada.nextInt();
+
+			// Le añadimos la falta
+			alumnos.get(seleccionar).getFaltas().add(falta);
+
+		}
 
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
@@ -753,6 +710,34 @@ public class MenuAlumnos {
 		// Informacion
 		System.out.println("Han faltado " + contadorLista + " alumno/s");
 	}
+	
+	// Metodo 12: Listar Faltas - Alejandro Fandila Cano
+		public static void listarFaltas(ArrayList<Alumno> alumnos) throws Exception {
+
+			Scanner entrada = new Scanner(System.in);
+
+			// Declaracion de variables
+			int seleccionar;
+			char[] faltas;
+			faltas = new char[6];
+
+			// Seleccionamos un alumno
+			System.out.println("Elija un alumno:");
+			MenuAlumnos.listarAlumnos(alumnos);
+			seleccionar = entrada.nextInt();
+
+			for (int i = 0; i < alumnos.get(seleccionar).getFaltas().size(); i++) {
+				faltas = alumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
+				alumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
+				for (int k = 0; k < 6; k++) {
+					if(faltas[k] == 'F') {
+						System.out.println("Sesion "+(k + 1));
+						System.out.println("F");
+					}
+				}
+			}
+
+		}
 
 	/*** Main ***/
 	public static void main(String[] args) throws Exception {
