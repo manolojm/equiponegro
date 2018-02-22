@@ -681,8 +681,10 @@ public class MenuAlumnos {
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
 
-		// Variables
+		
 		Scanner entrada = new Scanner(System.in);
+		
+		// Variables
 		Alumno alumnoAListar;
 		int numeroLista, contadorLista = 0;
 
@@ -720,23 +722,41 @@ public class MenuAlumnos {
 			int seleccionar;
 			char[] faltas;
 			faltas = new char[6];
-
+			boolean excepcion = false;
+			
 			// Seleccionamos un alumno
 			System.out.println("Elija un alumno:");
 			MenuAlumnos.listarAlumnos(alumnos);
-			seleccionar = entrada.nextInt();
-
-			for (int i = 0; i < alumnos.get(seleccionar).getFaltas().size(); i++) {
-				faltas = alumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
-				alumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
-				for (int k = 0; k < 6; k++) {
-					if(faltas[k] == 'F') {
-						System.out.println("Sesion "+(k + 1));
-						System.out.println("F");
+			
+			//Excepcion InputMismatchException
+			do {
+				try {
+					
+					excepcion = false;
+					
+					seleccionar = entrada.nextInt();
+					
+					for (int i = 0; i < alumnos.get(seleccionar).getFaltas().size(); i++) {
+						faltas = alumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
+						alumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
+						for (int k = 0; k < 6; k++) {
+							if(faltas[k] == 'F') {
+								System.out.println("Sesion "+(k + 1));
+								System.out.println("F");
+							}
+						}
 					}
+					
+				}catch(InputMismatchException ex) {
+					excepcion = true;
+					System.out.println("Introduzca un numero: ");
+					entrada.next();
+				}catch(IndexOutOfBoundsException ex2) {
+					System.out.println("No ha seleccionado ningún alumno.");
 				}
-			}
-
+				
+			}while(excepcion == true);
+			
 		}
 
 	/*** Main ***/
@@ -876,7 +896,9 @@ public class MenuAlumnos {
 				break;
 
 			case 12:
-
+				MenuAlumnos.listarFaltas(listaAlumnos);
+				System.out.println("\n");
+				
 				break;
 
 			case 13:
