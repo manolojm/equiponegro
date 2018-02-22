@@ -839,7 +839,6 @@ public class MenuAlumnos {
 	}
 
 	// Metodo 12: Listar Faltas - Alejandro Fandila Cano
-<<<<<<< HEAD
 		public static void listarFaltas(ArrayList<Alumno> alumnos) throws Exception {
 
 			Scanner entrada = new Scanner(System.in);
@@ -882,35 +881,7 @@ public class MenuAlumnos {
 				}
 				
 			}while(excepcion == true);
-			
-=======
-	public static void listarFaltas(ArrayList<Alumno> alumnos) throws Exception {
-
-		Scanner entrada = new Scanner(System.in);
-
-		// Declaracion de variables
-		int seleccionar;
-		char[] faltas;
-		faltas = new char[6];
-
-		// Seleccionamos un alumno
-		System.out.println("Elija un alumno:");
-		MenuAlumnos.listarAlumnos(alumnos);
-		seleccionar = entrada.nextInt();
-
-		for (int i = 0; i < alumnos.get(seleccionar).getFaltas().size(); i++) {
-			faltas = alumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
-			alumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
-			for (int k = 0; k < 6; k++) {
-				if (faltas[k] == 'F') {
-					System.out.println("Sesion " + (k + 1));
-					System.out.println("F");
-				}
-			}
->>>>>>> 5af2f48225337bb66370d80f4896f66e80293d0c
-		}
-
-	}
+		}	
 
 	/*** Main ***/
 	public static void main(String[] args) throws Exception {
