@@ -780,73 +780,207 @@ public class MenuAlumnos {
 		} while (numContinuar != 2);
 	}
 
-	// Metodo 9: Poner falta dia completo
-	public static void faltaDiaCompleto(ArrayList<Alumno> alumnos) throws Exception {
+	/*** Metodo 9: Poner falta dia completo - Alejandro Fandila Cano y Juan Paez  ***/
+		public static void faltaDiaCompleto(ArrayList<Alumno> alumnos) throws Exception {
 
-		Scanner entrada = new Scanner(System.in);
+			Scanner entrada = new Scanner(System.in);
 
-		// Declaracion de variables
-		int seleccionar, dia, mes, ano;
-		ArrayList<DiaClase> faltas = new ArrayList();
+			// Declaracion de variables
+			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			ArrayList<DiaClase> faltas = new ArrayList();
+			boolean encontrado =  false;
+			
+			do{ //bucle para repetir todo si fecha es incorrecta
+				
+			// Pedimos al usuario que introduzca la fecha
+			System.out.println("Introduzca la fecha");
+			do{ //bucle introduccion correcta del dia
+				try{
+					
+					System.out.println("1. Dia:");
+					dia = entrada.nextInt();
+					encontrado= true;
+					
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Vuelve a introducir un dia");
+					encontrado=false;
+					entrada.next();
+			}
+				}while(encontrado==false);
+			
+			do{ //bucle introduccion correcta del mes
+				try{
+					
+					System.out.println("2. Mes:");
+					mes = entrada.nextInt();
+					encontrado= true;
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Vuelve a introducir un mes");
+					encontrado=false;
+					entrada.next();
+			}
+				}while(encontrado==false);
+			
+			do{ //bucle introduccion correcta del año
+				try{
+					
+					System.out.println("3. Año:");
+					ano = entrada.nextInt();
+					encontrado= true;
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Vuelve a introducir un año");
+					encontrado=false;
+					entrada.next();
+				}
+			}while(encontrado==false);
+			
 
-		// Pedimos al usuario que introduzca la fecha
-		System.out.println("Introduzca la fecha");
-		System.out.println("1. Dia:");
-		dia = entrada.nextInt();
-		System.out.println("2. Mes:");
-		mes = entrada.nextInt();
-		System.out.println("3. Año:");
-		ano = entrada.nextInt();
+			// Creamos / Setteamos fecha, y la añadimos a falta
+			
+			try{ //comprobamos que la fecha es correcta
+				
+				Fecha fecha = new Fecha(dia, mes, ano);
+				DiaClase falta = new DiaClase(fecha);
+				falta.getHorario().faltaDiaEntero();
+				encontrado=true;
+				
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				encontrado=false;
+				
+			}
+			
+			}while(encontrado==false); //Final bucle de comprobar si la fecha es correcta
+						
 
-		// Creamos / Setteamos fecha, y la añadimos a falta
-		Fecha fecha = new Fecha(dia, mes, ano);
-		DiaClase falta = new DiaClase(fecha);
-		falta.getHorario().faltaDiaEntero();
+			// Seleccionamos al alumno al que vamos a poner falta
+			System.out.println("¿Que alumno ha faltado el dia completo?:");
+			MenuAlumnos.listarAlumnos(alumnos);
+			do{ //bucle introduccion correcta del alumno
+				try{
+					seleccionar = entrada.nextInt();
+					encontrado= true;
+					
+				}catch(InputMismatchException ex){
+					System.out.println("vuelve a introducir el numero de lista del Alumno");
+					encontrado=false;
+					entrada.next();
+					
+				}
+			}while(encontrado==false);
+			
 
-		// Seleccionamos al alumno al que vamos a poner falta
-		System.out.println("¿Que alumno ha faltado el dia completo?:");
-		MenuAlumnos.listarAlumnos(alumnos);
-		seleccionar = entrada.nextInt();
+			// Cambiamos le añadimos a las faltas del alumno 6 mas
+			try{
+				Fecha fecha = new Fecha(dia, mes, ano);
+				DiaClase falta = new DiaClase(fecha);
+				alumnos.get(seleccionar).getFaltas().add(falta);
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				encontrado=false;
+				
+			}		
+			
+		}
 
-		// Cambiamos le añadimos a las faltas del alumno 6 mas
-		alumnos.get(seleccionar).getFaltas().add(falta);
+		/***Metodo 10: Poner falta en una sesion - Alejandro Fandila Cano y Juan Paez ***/
+		public static void faltaHora(ArrayList<Alumno> alumnos) throws Exception {
 
-	}
+			Scanner entrada = new Scanner(System.in);
 
-	// Metodo 10:Poner falta hora
-	public static void faltaHora(ArrayList<Alumno> alumnos) throws Exception {
+			// Declaracion de variables
+			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			boolean encontrado;
+			ArrayList<DiaClase> faltas = new ArrayList();
+			
+			do{ //bucle para repetir todo si fecha es incorrecta
+			// Pedimos al usuario que introduzca la fecha
+			System.out.println("Introduzca la fecha");
+			do{ //bucle Introducion correcta del dia
+				
+				try{
+					encontrado= true;
+					System.out.println("1. Dia:");
+					dia = entrada.nextInt();
+					
+				}catch(InputMismatchException ex){
+					encontrado=false;
+					System.out.println("Vuelve a introducir un dia");
+					entrada.next();
+			}
+				}while(encontrado==false);
+			
+			do{ //bucle introducion correcta del mes
+				try{
+					encontrado= true;
+					System.out.println("2. Mes:");
+					mes = entrada.nextInt();
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Vuelve a introducir un mes");
+					encontrado=false;
+					entrada.next();
+			}
+				}while(encontrado==false);
+			
+			do{ // bucle introducion correcta del año
+				try{
+					encontrado= true;
+					System.out.println("3. Año:");
+					ano = entrada.nextInt();
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Vuelve a introducir un año");
+					encontrado=false;
+					entrada.next();
+				}
+			}while(encontrado==false);
+			
+			// Creamos / Setteamos fecha, y la añadimos a falta
+			
+			try{ //comprobar que la fecha es correcta
+			Fecha fecha = new Fecha(dia, mes, ano);
+			DiaClase falta = new DiaClase(fecha);
+			System.out.println("Introduzca la sesion en la que falta el alumno:");
+			falta.getHorario().faltaHora(entrada.nextInt());
+			encontrado=true;
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				encontrado=false;
+				
+			}
+			}while(encontrado==false); //Final del bucle de comprobar si la fecha es correcta
 
-		Scanner entrada = new Scanner(System.in);
+			// Seleccionamos al alumno al que vamos a poner falta
+			System.out.println("¿Que alumno ha faltado?:");
+			MenuAlumnos.listarAlumnos(alumnos);
+			do{ //bucle introduccion correcta del alumno
+				try{
+					encontrado= true;
+					seleccionar = entrada.nextInt();
+					
+				}catch(InputMismatchException ex){
+					System.out.println("vuelve a introducir el numero de lista del Alumno");
+					encontrado=false;
+					entrada.nextLine();
+				}
+			}while(encontrado==false);
 
-		// Declaracion de variables
-		int seleccionar, dia, mes, ano;
-		;
-		ArrayList<DiaClase> faltas = new ArrayList();
+			// Le añadimos la falta
+			try{
+				Fecha fecha = new Fecha(dia, mes, ano);
+				DiaClase falta = new DiaClase(fecha);
+				alumnos.get(seleccionar).getFaltas().add(falta);
+				encontrado=true;
+			}catch(Exception ex){
+				System.out.println(ex.getMessage());
+				encontrado=false;
+			}
 
-		// Pedimos al usuario que introduzca la fecha
-		System.out.println("Introduzca la fecha");
-		System.out.println("1. Dia:");
-		dia = entrada.nextInt();
-		System.out.println("2. Mes:");
-		mes = entrada.nextInt();
-		System.out.println("3. Año:");
-		ano = entrada.nextInt();
-
-		// Creamos / Setteamos fecha, y la añadimos a falta
-		Fecha fecha = new Fecha(dia, mes, ano);
-		DiaClase falta = new DiaClase(fecha);
-		System.out.println("Introduzca la sesion en la que falta el alumno:");
-		falta.getHorario().faltaHora(entrada.nextInt());
-
-		// Seleccionamos al alumno al que vamos a poner falta
-		System.out.println("¿Que alumno ha faltado?:");
-		MenuAlumnos.listarAlumnos(alumnos);
-		seleccionar = entrada.nextInt();
-
-		// Le añadimos la falta
-		alumnos.get(seleccionar).getFaltas().add(falta);
-
-	}
+		}
 
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
@@ -1044,10 +1178,22 @@ public class MenuAlumnos {
 
 			case 9:
 
+				// Llamamos al metodo
+				faltaDiaCompleto(listaAlumnos);
+
+				//salto de linea	
+				System.out.println();
+
 				break;
 
 			case 10:
 
+				// Llamamos al metodo
+				faltaHora(listaAlumnos);
+
+				//salto de linea
+				System.out.println();
+				
 				break;
 
 			case 11: // Manolo
