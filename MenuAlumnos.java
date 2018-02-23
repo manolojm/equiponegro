@@ -54,17 +54,17 @@ public class MenuAlumnos {
 	// Método para devolver la posición de una calificación recibiendo la posición
 	// del alumno y el nombre de la asignatura. En caso de no encontrar dicha
 	// asignatura devuelve -1
-	public static int devolverCalificacion(ArrayList<Alumno> lista, int posAlumno, String asig) {
+	public static int devolverCalificacion(Alumno alumno, String asig) {
 
 		int posCal = 0;
 		boolean encontrado = false;
 
 		// Mientras no excedamos el vector de asignaturas del alumno en posAlumno y no
 		// encontremos la asignatura continuamos el bucle
-		while (posCal < lista.get(posAlumno).getNotas().size() && !encontrado) {
+		while (posCal < alumno.getNotas().size() && !encontrado) {
 
-			Calificacion calificacion = lista.get(posAlumno).getNotas().get(posCal); // Obtenemos la nota en la posición
-																						// posCal del Alumno posAlumno
+			Calificacion calificacion = alumno.getNotas().get(posCal); // Obtenemos la nota en la posición
+																		// posCal del Alumno posAlumno
 
 			if (calificacion.getAsignatura().equals(asig))
 
@@ -367,7 +367,7 @@ public class MenuAlumnos {
 
 			do {
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				elegir = entrada.nextInt();
 
@@ -453,7 +453,7 @@ public class MenuAlumnos {
 
 			do {
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				elegir = entrada.nextInt();
 
@@ -564,16 +564,16 @@ public class MenuAlumnos {
 
 		// Declaración de variables
 		Scanner entrada = new Scanner(System.in);
-		int posicion = 0, numContinuar = 2, elegir;
+		int posicion = 0, elegir, deseaMatricular = 1, posCalificacion = 0;
 		String dni = "";
 		String asig, calif;
-		boolean error = false;
+		boolean error = false, matriculado = false;
 
 		do { // Bucle para repetir proceso de calificar
 
 			do {
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				elegir = entrada.nextInt();
 
@@ -613,53 +613,98 @@ public class MenuAlumnos {
 
 						System.out.println("Posición incorrecta");
 
-				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
+					entrada.nextLine();
 
-			entrada.nextLine(); // Vaciamos el buffer
+				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
 
 			System.out.println("Introduzca la asignatura: ");
 			asig = entrada.nextLine();
+			
+			matriculado = false;
 
-			do { // Bluce para la correcta introducción de la nota
+			if (devolverCalificacion(listaAlumnos.get(posicion), asig) == -1) { // Llamada a devolverCalificacion para
+																				// comprobar la existencia de dicha
+																				// calificación
 
-				System.out.println("Introduzca la calificación: ");
-				calif = entrada.nextLine();
+				System.out.println(
+						"El alumno no está matriculado en esa asignatura, ¿desea matricularlo? (1 - Sí, 2 - No): ");
 
-				try { // En el caso de que se haya introducido mal la nota
+				do { // Bucle para matricular al alumno en la asignatura
 
-					error = comprobarNota(calif);
+					deseaMatricular = entrada.nextInt();
 
-				} catch (Exception ex) {
+					if (deseaMatricular == 1) {
 
-					error = true;
-					System.out.println(ex.getMessage());
-				}
+						try { // Matriculamos
 
-			} while (error);
+							matricularAlumno(listaAlumnos.get(posicion));
+							entrada.nextLine();
 
-			// Introducimos la nueva calificación
-			ArrayList<Calificacion> calificaciones = listaAlumnos.get(posicion).getNotas();
+						} catch (Exception ex) {
 
-			Calificacion calificacion = new Calificacion("0");
+							System.out.println(ex.getMessage());
+						}
+						
+						matriculado = true;
+						
+					}
 
-			calificacion.setNota(calif);
+					else if (deseaMatricular == 2)
 
-			calificacion.setAsignatura(asig);
+						System.out.println("Volviendo...");
 
-			calificaciones.add(calificacion);
+					else
 
-			listaAlumnos.get(posicion).cambiarNotas(calificaciones);
+						System.out.println("Error. Vuelva a elegir una opción (1 - Sí, 2 - No):");
+
+				} while (deseaMatricular != 1 && deseaMatricular != 2);
+
+			}
+
+			if (deseaMatricular == 1) { // El alumno ya está matriculado en la asignatura
+
+				do { // Bluce para la correcta introducción de la nota
+
+					System.out.println("Introduzca la calificación: ");
+					calif = entrada.nextLine();
+
+					try { // En el caso de que se haya introducido mal la nota
+
+						error = comprobarNota(calif);
+
+					} catch (Exception ex) {
+
+						error = true;
+						System.out.println(ex.getMessage());
+					}
+
+				} while (error);
+
+				if (matriculado) // Si matriculado es true es porque el usuario ha tenido que matricular antes la
+									// asignatura y por tanto la nota a cambiar es la que está en último lugar
+
+					posCalificacion = listaAlumnos.get(posicion).getNotas().size() - 1;
+
+				else // Si no ha tenido que matricular, entonces la asignatura ya existe y es aquella
+						// con el valor de asig, por tanto buscamos su posición con este valor sin temor
+						// a que no esté
+
+					posCalificacion = devolverCalificacion(listaAlumnos.get(posicion), asig);
+
+				listaAlumnos.get(posicion).getNotas().get(posCalificacion).setNota(calif);
+
+			}
 
 			do { // Bucle para decidir si continuar o no
 
 				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
-				numContinuar = entrada.nextInt();
+				elegir = entrada.nextInt();
 
-			} while (numContinuar != 1 && numContinuar != 2);
+			} while (elegir != 1 && elegir != 2);
 
 			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
 
-		} while (numContinuar != 2);
+		} while (elegir != 2);
 	}
 
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
@@ -674,7 +719,7 @@ public class MenuAlumnos {
 
 			do {
 
-				System.out.println("¿Elejirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				elegir = entrada.nextInt();
 
