@@ -258,88 +258,97 @@ public class MenuAlumnos {
 
 		do {
 
+			// Pedimos alumno a modificar
 			System.out.println("Alumno a modificar: ");
 			alumnoModifico = entrada.nextInt();
 
-			// Buscamos al alumno elegido
-			Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
+			// Si el alumno no está en la lista
+			if (alumnoModifico >= listaAlumnos.size()) {
+				System.out.println("Error: no se ha encontrado al alumno " + alumnoModifico + "\n");
+				
+			// Si el alumno está en la lista
+			} else {
 
-			do {
+				// Buscamos al alumno elegido
+				Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
 
-				// Menu para elegir que se desea modificar
-				System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
-						+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
-				numerito = entrada.nextInt();
+				do {
 
-				switch (numerito) {
+					// Menu para elegir que se desea modificar
+					System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
+							+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
+					numerito = entrada.nextInt();
 
-				case 1: // DNI
+					switch (numerito) {
 
-					String nuevoDni;
+					case 1: // DNI
 
-					System.out.println("Introduzca nuevo DNI: ");
-					nuevoDni = entrada.next();
+						String nuevoDni;
 
-					alumnoModificar.setDni(nuevoDni); // Modificamos DNI
+						System.out.println("Introduzca nuevo DNI: ");
+						nuevoDni = entrada.next();
 
-					break;
+						alumnoModificar.setDni(nuevoDni); // Modificamos DNI
 
-				case 2: // Nombre
+						break;
 
-					String nuevoNombre;
+					case 2: // Nombre
 
-					System.out.println("Introduzca nuevo Nombre: ");
-					nuevoNombre = entrada.next();
+						String nuevoNombre;
 
-					alumnoModificar.setNombre(nuevoNombre); // Modificamos Nombre
+						System.out.println("Introduzca nuevo Nombre: ");
+						nuevoNombre = entrada.next();
 
-					break;
+						alumnoModificar.setNombre(nuevoNombre); // Modificamos Nombre
 
-				case 3: // Apellidos
+						break;
 
-					String nuevoApellidos;
+					case 3: // Apellidos
 
-					System.out.println("Introduzca nuevos Apellidos: ");
-					nuevoApellidos = entrada.next();
+						String nuevoApellidos;
 
-					alumnoModificar.setApellidos(nuevoApellidos); // Modificamos Apellidos
+						System.out.println("Introduzca nuevos Apellidos: ");
+						nuevoApellidos = entrada.next();
 
-					break;
+						alumnoModificar.setApellidos(nuevoApellidos); // Modificamos Apellidos
 
-				case 4: // Telefono
+						break;
 
-					String nuevoTelefono;
+					case 4: // Telefono
 
-					System.out.println("Introduzca nuevo Telefono: ");
-					nuevoTelefono = entrada.next();
+						String nuevoTelefono;
 
-					alumnoModificar.setTelefono(nuevoTelefono); // Modificamos Telefono
+						System.out.println("Introduzca nuevo Telefono: ");
+						nuevoTelefono = entrada.next();
 
-					break;
+						alumnoModificar.setTelefono(nuevoTelefono); // Modificamos Telefono
 
-				case 5: // Email
+						break;
 
-					String nuevoEmail;
+					case 5: // Email
 
-					System.out.println("Introduzca nuevo Email: ");
-					nuevoEmail = entrada.next();
+						String nuevoEmail;
 
-					alumnoModificar.setEmail(nuevoEmail); // Modificamos Email
+						System.out.println("Introduzca nuevo Email: ");
+						nuevoEmail = entrada.next();
 
-					break;
+						alumnoModificar.setEmail(nuevoEmail); // Modificamos Email
 
-				case 6: // Salir
+						break;
 
-					System.out.println("Salir");
+					case 6: // Salir
 
-					break;
+						System.out.println("Salir");
 
-				default: // Por defecto
+						break;
 
-					System.out.println("Opcion erronea");
-				}
+					default: // Por defecto
 
-			} while (numerito != 6);
+						System.out.println("Opcion erronea");
+					}
+
+				} while (numerito != 6);
+			}
 
 			// Si se desea modificar otro alumno
 			do {
@@ -985,7 +994,6 @@ public class MenuAlumnos {
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
 
-		
 		Scanner entrada = new Scanner(System.in);
 		
 		// Variables
@@ -1002,12 +1010,14 @@ public class MenuAlumnos {
 
 			alumnoAListar = listaAlumnos.get(i);
 
+			// Preguntamos si se encuentra el alumno
 			do {
 				System.out.println("Se encuentra " + alumnoAListar.getNombre() + " - " + alumnoAListar.getDni()
 						+ " ?\n1 - Si\n2 - No\n");
 				numeroLista = entrada.nextInt();
 			} while ((numeroLista < 1) || (numeroLista > 2));
 
+			// Si no se encuentra, incrementamos la lista de ausencias
 			if (numeroLista == 2) {
 				contadorLista++;
 			}
@@ -1071,10 +1081,6 @@ public class MenuAlumnos {
 		ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
 		boolean salir = false, opcionCorrecta;
 		int opcion = 0;
-
-		// Pruebas
-		Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
-		listaAlumnos.add(alumno1);
 
 		do {
 
