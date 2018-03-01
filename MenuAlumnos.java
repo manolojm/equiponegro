@@ -1110,10 +1110,13 @@ public class MenuAlumnos {
 				break;
 
 			case 2:
-
-				MenuAlumnos.darBaja(listaAlumnos);
-				System.out.println("Se ha dado de baja al alumno.");
-
+				if(listaAlumnos.size() > 0) {
+					MenuAlumnos.darBaja(listaAlumnos);
+					System.out.println("Se ha dado de baja al alumno.");
+				}else {
+					System.out.println("No hay alumnos.");
+				}
+				
 				System.out.println("\n");
 
 				break;
