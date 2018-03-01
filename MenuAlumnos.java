@@ -258,97 +258,88 @@ public class MenuAlumnos {
 
 		do {
 
-			// Pedimos alumno a modificar
 			System.out.println("Alumno a modificar: ");
 			alumnoModifico = entrada.nextInt();
 
-			// Si el alumno no está en la lista
-			if (alumnoModifico >= listaAlumnos.size()) {
-				System.out.println("Error: no se ha encontrado al alumno " + alumnoModifico + "\n");
-				
-			// Si el alumno está en la lista
-			} else {
+			// Buscamos al alumno elegido
+			Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
 
-				// Buscamos al alumno elegido
-				Alumno alumnoModificar = listaAlumnos.get(alumnoModifico);
+			do {
 
-				do {
+				// Menu para elegir que se desea modificar
+				System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
+						+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
+				numerito = entrada.nextInt();
 
-					// Menu para elegir que se desea modificar
-					System.out.println("Que desea modificar? \n1 - DNI \n2 - Nombre"
-							+ "\n3 - Apellidos \n4 - Telefono \n5 - Email \n6 - Nada");
-					numerito = entrada.nextInt();
+				switch (numerito) {
 
-					switch (numerito) {
+				case 1: // DNI
 
-					case 1: // DNI
+					String nuevoDni;
 
-						String nuevoDni;
+					System.out.println("Introduzca nuevo DNI: ");
+					nuevoDni = entrada.next();
 
-						System.out.println("Introduzca nuevo DNI: ");
-						nuevoDni = entrada.next();
+					alumnoModificar.setDni(nuevoDni); // Modificamos DNI
 
-						alumnoModificar.setDni(nuevoDni); // Modificamos DNI
+					break;
 
-						break;
+				case 2: // Nombre
 
-					case 2: // Nombre
+					String nuevoNombre;
 
-						String nuevoNombre;
+					System.out.println("Introduzca nuevo Nombre: ");
+					nuevoNombre = entrada.next();
 
-						System.out.println("Introduzca nuevo Nombre: ");
-						nuevoNombre = entrada.next();
+					alumnoModificar.setNombre(nuevoNombre); // Modificamos Nombre
 
-						alumnoModificar.setNombre(nuevoNombre); // Modificamos Nombre
+					break;
 
-						break;
+				case 3: // Apellidos
 
-					case 3: // Apellidos
+					String nuevoApellidos;
 
-						String nuevoApellidos;
+					System.out.println("Introduzca nuevos Apellidos: ");
+					nuevoApellidos = entrada.next();
 
-						System.out.println("Introduzca nuevos Apellidos: ");
-						nuevoApellidos = entrada.next();
+					alumnoModificar.setApellidos(nuevoApellidos); // Modificamos Apellidos
 
-						alumnoModificar.setApellidos(nuevoApellidos); // Modificamos Apellidos
+					break;
 
-						break;
+				case 4: // Telefono
 
-					case 4: // Telefono
+					String nuevoTelefono;
 
-						String nuevoTelefono;
+					System.out.println("Introduzca nuevo Telefono: ");
+					nuevoTelefono = entrada.next();
 
-						System.out.println("Introduzca nuevo Telefono: ");
-						nuevoTelefono = entrada.next();
+					alumnoModificar.setTelefono(nuevoTelefono); // Modificamos Telefono
 
-						alumnoModificar.setTelefono(nuevoTelefono); // Modificamos Telefono
+					break;
 
-						break;
+				case 5: // Email
 
-					case 5: // Email
+					String nuevoEmail;
 
-						String nuevoEmail;
+					System.out.println("Introduzca nuevo Email: ");
+					nuevoEmail = entrada.next();
 
-						System.out.println("Introduzca nuevo Email: ");
-						nuevoEmail = entrada.next();
+					alumnoModificar.setEmail(nuevoEmail); // Modificamos Email
 
-						alumnoModificar.setEmail(nuevoEmail); // Modificamos Email
+					break;
 
-						break;
+				case 6: // Salir
 
-					case 6: // Salir
+					System.out.println("Salir");
 
-						System.out.println("Salir");
+					break;
 
-						break;
+				default: // Por defecto
 
-					default: // Por defecto
+					System.out.println("Opcion erronea");
+				}
 
-						System.out.println("Opcion erronea");
-					}
-
-				} while (numerito != 6);
-			}
+			} while (numerito != 6);
 
 			// Si se desea modificar otro alumno
 			do {
@@ -790,12 +781,14 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 9: Poner falta dia completo - Alejandro Fandila Cano y Juan Paez  ***/
-		public static void faltaDiaCompleto(ArrayList<Alumno> alumnos) throws Exception {
+	public static void faltaDiaCompleto(ArrayList<Alumno> alumnos) throws Exception {
 
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
 			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			String dni="";
+			int elegir=0;
 			ArrayList<DiaClase> faltas = new ArrayList();
 			boolean encontrado =  false;
 			
@@ -853,7 +846,7 @@ public class MenuAlumnos {
 				
 				Fecha fecha = new Fecha(dia, mes, ano);
 				DiaClase falta = new DiaClase(fecha);
-				falta.getHorario().faltaDiaEntero();
+				
 				encontrado=true;
 				
 			}catch(Exception ex){
@@ -864,44 +857,87 @@ public class MenuAlumnos {
 			
 			}while(encontrado==false); //Final bucle de comprobar si la fecha es correcta
 						
-
+			
 			// Seleccionamos al alumno al que vamos a poner falta
-			System.out.println("¿Que alumno ha faltado el dia completo?:");
-			MenuAlumnos.listarAlumnos(alumnos);
-			do{ //bucle introduccion correcta del alumno
-				try{
+			
+			do { //bucle para elegir entre el DNI O Nº de lista
+
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+
+				elegir = entrada.nextInt();
+
+				if (elegir != 1 && elegir != 2)
+
+					System.out.println("Elección incorrecta");
+
+			} while (elegir != 1 && elegir != 2);
+
+			if (elegir == 1) // Elegir por DNI
+
+				do { // Bucle para la correcta introducción del DNI
+
+					entrada.nextLine(); // Vaciamos el buffer
+					
+					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
+					
+					System.out.println("Introduzca el DNI del alumno: ");
+					dni = entrada.nextLine();
+					
+
+					seleccionar = devolverPosicion(alumnos, dni);
+					
+					if (seleccionar == -1)
+
+						System.out.println("DNI incorrecto");
+						System.out.println("");//falto de linea
+						
+
+				} while (seleccionar == -1); // Si ha devuelto -1 es que no lo ha encontrado
+
+			else // Elegir por lista
+
+				do { //Bucle para la correcta introducción del Nº de lista
+					
+					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
+					
+					System.out.println("Introduzca la posición: ");
 					seleccionar = entrada.nextInt();
-					encontrado= true;
-					
-				}catch(InputMismatchException ex){
-					System.out.println("vuelve a introducir el numero de lista del Alumno");
-					encontrado=false;
-					entrada.next();
-					
-				}
-			}while(encontrado==false);
+
+					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
+
+						System.out.println("Posición incorrecta");
+
+				} while (seleccionar < 0 || seleccionar > alumnos.size() - 1);
 			
 
 			// Cambiamos le añadimos a las faltas del alumno 6 mas
 			try{
 				Fecha fecha = new Fecha(dia, mes, ano);
 				DiaClase falta = new DiaClase(fecha);
+				falta.getHorario().faltaDiaEntero();
 				alumnos.get(seleccionar).getFaltas().add(falta);
+				
 			}catch(Exception ex){
 				System.out.println(ex.getMessage());
 				encontrado=false;
 				
-			}		
+			}
+			System.out.println("Falta puesta correctamente ");
+			
+		
 			
 		}
 
-		/***Metodo 10: Poner falta en una sesion - Alejandro Fandila Cano y Juan Paez ***/
-		public static void faltaHora(ArrayList<Alumno> alumnos) throws Exception {
+	/***Metodo 10: Poner falta en una sesion - Alejandro Fandila Cano y Juan Paez ***/
+	public static void faltaHora(ArrayList<Alumno> alumnos) throws Exception {
 
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
 			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			String dni="";
 			boolean encontrado;
 			ArrayList<DiaClase> faltas = new ArrayList();
 			
@@ -951,11 +987,12 @@ public class MenuAlumnos {
 			// Creamos / Setteamos fecha, y la añadimos a falta
 			
 			try{ //comprobar que la fecha es correcta
-			Fecha fecha = new Fecha(dia, mes, ano);
-			DiaClase falta = new DiaClase(fecha);
-			System.out.println("Introduzca la sesion en la que falta el alumno:");
-			falta.getHorario().faltaHora(entrada.nextInt());
-			encontrado=true;
+				
+				Fecha fecha = new Fecha(dia, mes, ano);
+				DiaClase falta = new DiaClase(fecha);
+				
+				encontrado=true;
+				
 			}catch(Exception ex){
 				System.out.println(ex.getMessage());
 				encontrado=false;
@@ -963,37 +1000,82 @@ public class MenuAlumnos {
 			}
 			}while(encontrado==false); //Final del bucle de comprobar si la fecha es correcta
 
-			// Seleccionamos al alumno al que vamos a poner falta
-			System.out.println("¿Que alumno ha faltado?:");
-			MenuAlumnos.listarAlumnos(alumnos);
-			do{ //bucle introduccion correcta del alumno
-				try{
-					encontrado= true;
-					seleccionar = entrada.nextInt();
+			do { //bucle para elegir entre el DNI O Nº de lista
+
+				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+
+				seleccionar = entrada.nextInt();
+
+				if (seleccionar != 1 && seleccionar != 2)
+
+					System.out.println("Elección incorrecta");
+
+			} while (seleccionar != 1 && seleccionar != 2);
+
+			if (seleccionar == 1) // Elegir por DNI
+
+				do { // Bucle para la correcta introducción del DNI
+
+					entrada.nextLine(); // Vaciamos el buffer
 					
-				}catch(InputMismatchException ex){
-					System.out.println("vuelve a introducir el numero de lista del Alumno");
-					encontrado=false;
-					entrada.nextLine();
-				}
-			}while(encontrado==false);
+					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
+					
+					System.out.println("Introduzca el DNI del alumno: ");
+					dni = entrada.nextLine();
+					
+
+					seleccionar = devolverPosicion(alumnos, dni);
+					
+					if (seleccionar == -1)
+
+						System.out.println("DNI incorrecto");
+						System.out.println("");//falto de linea
+						
+
+				} while (seleccionar == -1); // Si ha devuelto -1 es que no lo ha encontrado
+
+			else // Elegir por lista
+
+				do { //Bucle para la correcta introducción del Nº de lista
+					
+					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
+					
+					System.out.println("Introduzca la posición: ");
+					seleccionar = entrada.nextInt();
+
+					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
+
+						System.out.println("Posición incorrecta");
+
+				} while (seleccionar < 0 || seleccionar > alumnos.size() - 1);
 
 			// Le añadimos la falta
-			try{
+			do{
+			try{ //comprobamos que la sesion se a introducido correctamente
+				
 				Fecha fecha = new Fecha(dia, mes, ano);
 				DiaClase falta = new DiaClase(fecha);
+				
+				System.out.println("Introduzca la sesion en la que falta el alumno:");
+				falta.getHorario().faltaHora(entrada.nextInt());
 				alumnos.get(seleccionar).getFaltas().add(falta);
+				
 				encontrado=true;
+				
 			}catch(Exception ex){
-				System.out.println(ex.getMessage());
+				System.out.println("Sesion entre 1 y 6: " + ex.getMessage());
 				encontrado=false;
 			}
-
+			}while(encontrado==false);
+			System.out.println("Falta puesta correctamente");
 		}
 
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
 
+		
 		Scanner entrada = new Scanner(System.in);
 		
 		// Variables
@@ -1010,14 +1092,12 @@ public class MenuAlumnos {
 
 			alumnoAListar = listaAlumnos.get(i);
 
-			// Preguntamos si se encuentra el alumno
 			do {
 				System.out.println("Se encuentra " + alumnoAListar.getNombre() + " - " + alumnoAListar.getDni()
 						+ " ?\n1 - Si\n2 - No\n");
 				numeroLista = entrada.nextInt();
 			} while ((numeroLista < 1) || (numeroLista > 2));
 
-			// Si no se encuentra, incrementamos la lista de ausencias
 			if (numeroLista == 2) {
 				contadorLista++;
 			}
@@ -1081,6 +1161,10 @@ public class MenuAlumnos {
 		ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
 		boolean salir = false, opcionCorrecta;
 		int opcion = 0;
+
+		// Pruebas
+		Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
+		listaAlumnos.add(alumno1);
 
 		do {
 
