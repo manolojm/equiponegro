@@ -390,7 +390,7 @@ public class MenuAlumnos {
 
 					if (idAlumno == -1)
 
-						System.out.println("DNI incorrecto");
+						throw new Exception("El alumno no existe.");
 
 				} while (idAlumno == -1); // Si ha devuelto -1 es que no lo ha encontrado
 
@@ -405,7 +405,7 @@ public class MenuAlumnos {
 
 					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
 
-						System.out.println("Posición incorrecta");
+						throw new Exception("El alumno no existe.");
 
 					entrada.nextLine(); // Vaciamos el buffer
 
@@ -459,7 +459,7 @@ public class MenuAlumnos {
 
 				if (elegir != 1 && elegir != 2)
 
-					System.out.println("Elección incorrecta");
+					throw new Exception("El alumno no existe.");
 
 			} while (elegir != 1 && elegir != 2);
 
@@ -491,7 +491,7 @@ public class MenuAlumnos {
 
 					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
 
-						System.out.println("Posición incorrecta");
+						throw new Exception("El alumno no existe.");
 
 					entrada.nextLine(); // Vaciamos el buffer
 
