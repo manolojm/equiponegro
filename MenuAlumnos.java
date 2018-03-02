@@ -806,14 +806,14 @@ public class MenuAlumnos {
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
-			int numContinuar, seleccionar=-1, dia=1, mes=1, ano=2016;
+			int numContinuar=0, seleccionar=-1, dia=1, mes=1, ano=2016;
 			String dni="";
 			int elegir=0;
 			ArrayList<DiaClase> faltas = new ArrayList();
 			boolean encontrado =  false;
 
 			do{ //bucle para repetir faltaDiaCompleto
-			
+			do{ //bucle para repetir si continuar o no
 			do{ //bucle para repetir todo si fecha es incorrecta
 				
 			// Pedimos al usuario que introduzca la fecha
@@ -882,8 +882,10 @@ public class MenuAlumnos {
 			
 			// Seleccionamos al alumno al que vamos a poner falta
 			
+			do{ //bucle que repite el dni y numero de lista
+				
 			do { //bucle para elegir entre el DNI O Nº de lista
-
+				try{
 				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				elegir = entrada.nextInt();
@@ -891,9 +893,15 @@ public class MenuAlumnos {
 				if (elegir != 1 && elegir != 2)
 
 					System.out.println("Elección incorrecta");
-
+				
+					encontrado=true;
+				}catch(InputMismatchException ex){
+					System.out.println("Introduzca 1 o 2 !!! ");
+					encontrado=false;
+					entrada.nextLine();
+				}
 			} while (elegir != 1 && elegir != 2);
-
+			
 			if (elegir == 1) // Elegir por DNI
 
 				do { // Bucle para la correcta introducción del DNI
@@ -903,6 +911,7 @@ public class MenuAlumnos {
 					System.out.println("¿Que alumno ha faltado el dia completo?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
+					System.out.println(""); //salto de linea
 					System.out.println("Introduzca el DNI del alumno: ");
 					dni = entrada.nextLine();
 					
@@ -912,28 +921,37 @@ public class MenuAlumnos {
 					if (seleccionar == -1)
 
 						System.out.println("DNI incorrecto");
-						System.out.println("");//falto de linea
 						
 
 				} while (seleccionar == -1); // Si ha devuelto -1 es que no lo ha encontrado
 
 			else // Elegir por lista
-
-				do { //Bucle para la correcta introducción del Nº de lista
+				do{ //bucle que repite si el usuario mete alguna letra 
 					
+				do { //Bucle para la correcta introducción del Nº de lista
+					try{
 					System.out.println("¿Que alumno ha faltado el dia completo?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
+					System.out.println("");//salto de linea
 					System.out.println("Introduzca la posición: ");
 					seleccionar = entrada.nextInt();
 
 					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
 
 						System.out.println("Posición incorrecta");
-
+						encontrado=true;
+					
+					}catch(Exception ex){
+						System.out.println("Introduzca el numero del alumno !!!");
+						encontrado=false;
+						entrada.nextLine();
+					}
 				} while (seleccionar < 0 || seleccionar > alumnos.size() - 1);
 			
-
+			}while(encontrado==false); //final del bucle que repite el numero del alumno
+			
+			}while(encontrado==false); //final del bucle que repite el dni y numero del alumno
 			// Cambiamos le añadimos a las faltas del alumno 6 mas
 			try{
 				Fecha fecha = new Fecha(dia, mes, ano);
@@ -947,19 +965,27 @@ public class MenuAlumnos {
 				
 			}
 			System.out.println("Falta puesta correctamente ");
-
+			
+			
+				
+			
 			do { // Bucle para decidir si continuar o no
-
+				try{
 				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
 				numContinuar = entrada.nextInt();
-
+				encontrado=true;
+				}catch(InputMismatchException ex){
+					System.out.println("Introduzca 1 o 2 !!!!");
+					encontrado=false;
+					entrada.nextLine();
+				}
 			} while (numContinuar != 1 && numContinuar != 2);
 
 			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
 
 		} while (numContinuar != 2);
 			
-		
+			}while(encontrado==false); //final de repetir falta dia completo
 			
 		}
 
@@ -969,14 +995,15 @@ public class MenuAlumnos {
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
-			int numContinuar, seleccionar=-1, dia=1, mes=1, ano=2016;
+			int numContinuar=0, seleccionar=-1, dia=1, mes=1, ano=2016;
 			String dni="";
 			boolean encontrado;
 			ArrayList<DiaClase> faltas = new ArrayList();
-
-			do{ //bucle para repetir faltaHora completo
 			
+			do{// bucle para repetir faltaHora completo
+			do{ //bucle para repetir si continuar o no
 			do{ //bucle para repetir todo si fecha es incorrecta
+				
 			// Pedimos al usuario que introduzca la fecha
 			System.out.println("Introduzca la fecha");
 			do{ //bucle Introducion correcta del dia
@@ -991,7 +1018,7 @@ public class MenuAlumnos {
 					System.out.println("Vuelve a introducir un dia");
 					entrada.next();
 			}
-				}while(encontrado==false);
+				}while(encontrado==false);//final bucle dia 
 			
 			do{ //bucle introducion correcta del mes
 				try{
@@ -1004,7 +1031,7 @@ public class MenuAlumnos {
 					encontrado=false;
 					entrada.next();
 			}
-				}while(encontrado==false);
+				}while(encontrado==false); //final bucle mes
 			
 			do{ // bucle introducion correcta del año
 				try{
@@ -1017,7 +1044,7 @@ public class MenuAlumnos {
 					encontrado=false;
 					entrada.next();
 				}
-			}while(encontrado==false);
+			}while(encontrado==false);//final bucle año
 			
 			// Creamos / Setteamos fecha, y la añadimos a falta
 			
@@ -1034,9 +1061,12 @@ public class MenuAlumnos {
 				
 			}
 			}while(encontrado==false); //Final del bucle de comprobar si la fecha es correcta
-
+			
+			do{ //bucle que repite el dni y numero de lista
+				
+			
 			do { //bucle para elegir entre el DNI O Nº de lista
-
+				try{
 				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
 
 				seleccionar = entrada.nextInt();
@@ -1044,6 +1074,14 @@ public class MenuAlumnos {
 				if (seleccionar != 1 && seleccionar != 2)
 
 					System.out.println("Elección incorrecta");
+				
+					encontrado=true;
+					
+				}catch(InputMismatchException ex){
+					System.out.println("Introduzca 1 o 2 !!!");
+					encontrado=false;
+					entrada.nextLine();
+				}
 
 			} while (seleccionar != 1 && seleccionar != 2);
 
@@ -1071,22 +1109,35 @@ public class MenuAlumnos {
 				} while (seleccionar == -1); // Si ha devuelto -1 es que no lo ha encontrado
 
 			else // Elegir por lista
-
-				do { //Bucle para la correcta introducción del Nº de lista
+				
+				do{ //bucle que repite si el usuario mete alguna letra
 					
+				
+				do { //Bucle para la correcta introducción del Nº de lista
+					try{
 					System.out.println("¿Que alumno ha faltado a una sesion?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
+					System.out.println("");//salto de linea
 					System.out.println("Introduzca la posición: ");
 					seleccionar = entrada.nextInt();
 
 					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
 
 						System.out.println("Posición incorrecta");
-
+						encontrado=true;
+						
+					}catch(InputMismatchException ex){
+						System.out.println("Introduzca el numero del alumno !!!");
+						encontrado=false;
+						entrada.nextLine();
+					}
 				} while (seleccionar < 0 || seleccionar > alumnos.size() - 1);
-
-			// Le añadimos la falta
+				
+				}while(encontrado==false); //final del bucle que repite el numero del alumno
+				
+				}while(encontrado==false); //final del bucle que repite el dni y numero del alumno
+			// Le añadimos la faltas
 			do{
 			try{ //comprobamos que la sesion se a introducido correctamente
 				
@@ -1100,25 +1151,39 @@ public class MenuAlumnos {
 				encontrado=true;
 				
 			}catch(Exception ex){
-				System.out.println("Sesion entre 1 y 6: " + ex.getMessage());
+				System.out.println("Sesion entre 1 y 6: ");
 				encontrado=false;
+				entrada.nextLine();
 			}
 			}while(encontrado==false);
 			System.out.println("Falta puesta correctamente");
+			
 
+			
 			do { // Bucle para decidir si continuar o no
-
+				try{
+					
 				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
 				numContinuar = entrada.nextInt();
+				encontrado=true;
+				
+				}catch(InputMismatchException ex){
+					
+					System.out.println("Introduzca entre 1 o 2 !!!");
+					encontrado=false;
+					entrada.nextLine();// vaciamos buffer
+					
+				}while(encontrado==false);
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
 			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
 
-		} while (numContinuar != 2);
-
+		} while (numContinuar != 2); //final de repetir si continua o no
+			
+			}while(encontrado==false); //final de repetir falta dia completo
 		}
-
+		
 	/*** Metodo 11: Pasar lista - Manolo ***/
 	/* Preguntamos si ha venido cada uno de los alumnos y al final mostramos
 	cuantos han faltado */
