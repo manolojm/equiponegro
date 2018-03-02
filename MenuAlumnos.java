@@ -248,6 +248,7 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 3: Listar Alumnos - Manolo ***/
+	/* Recorre el ArrayList para listar los alumnos */
 	public static void listarAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		// Excepcion
@@ -268,7 +269,8 @@ public class MenuAlumnos {
 	}
 
 	/*** Metodo 4: Modificar Alumnos - Manolo ***/
-	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) {
+	/* Permite modificar cualquier caracterísitca de un alumno a través de un menú*/
+	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		// Variables
 		Scanner entrada = new Scanner(System.in);
@@ -523,6 +525,8 @@ public class MenuAlumnos {
 
 			ArrayList<Calificacion> calificaciones = alumno.getNotas();
 
+			// Calificacion quitarAsignatura = new Calificacion(asignatura);
+
 			// Pedimos la asignatura
 
 			System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
@@ -542,7 +546,7 @@ public class MenuAlumnos {
 			}
 
 			// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
-			// que se encontraba (usando aux)
+			// que se encontraba (gracias a aux)
 
 			if (encontrado) {
 
@@ -1116,6 +1120,8 @@ public class MenuAlumnos {
 		}
 
 	/*** Metodo 11: Pasar lista - Manolo ***/
+	/* Preguntamos si ha venido cada uno de los alumnos y al final mostramos
+	cuantos han faltado */
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		
@@ -1265,7 +1271,13 @@ public class MenuAlumnos {
 			case 4: // Manolo
 
 				// Llamamos al metodo
-				modificarAlumnos(listaAlumnos);
+				try {
+					modificarAlumnos(listaAlumnos);
+				} catch (InputMismatchException ex) {
+					System.out.println("Caracter no valido");
+				} catch (IndexOutOfBoundsException ex) {
+					System.out.println("Numero no valido");
+				}
 
 				// Salto de linea
 				System.out.println();
@@ -1289,7 +1301,6 @@ public class MenuAlumnos {
 
 			case 6:
 
-				// Llamamos al metodo
 				try {
 					bajaAsignatura(listaAlumnos);
 				} catch (Exception ex) {
@@ -1303,14 +1314,12 @@ public class MenuAlumnos {
 
 			case 7:
 
-				// Llamamos al metodo
 				introducirCalificacion(listaAlumnos);
 
 				break;
 
 			case 8:
 
-				// Llamamos al metodo
 				mostrarCalificaciones(listaAlumnos);
 
 				break;
@@ -1350,10 +1359,7 @@ public class MenuAlumnos {
 				break;
 
 			case 12:
-				
-				// Llamamos al metodo
 				MenuAlumnos.listarFaltas(listaAlumnos);
-				
 				System.out.println("\n");
 				
 				break;
