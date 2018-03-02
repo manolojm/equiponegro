@@ -205,14 +205,14 @@ public class MenuAlumnos {
 
 		Scanner entrada = new Scanner(System.in);
 
-		System.out.println("Introduzca a quien desea dar de baja:");
-
 		MenuAlumnos.listarAlumnos(lista);
 
 		// En caso de que no se introduzca correctamente, el metodo no hará nada.
 		do {
 			try {
+				entrada.nextLine();
 				numero = true;
+				System.out.println("Introduzca el alumno que desee dar de baja:");
 				seleccionar = entrada.nextInt();
 				lista.remove(seleccionar);
 			} catch (InputMismatchException ex) {
@@ -221,9 +221,12 @@ public class MenuAlumnos {
 				System.out.println("No se ha introducido ningun numero.");
 			} catch (IndexOutOfBoundsException ex2) {
 				System.out.println("El alumno " + seleccionar + " no existe.");
+				numero = false;
 			}
 
-		} while (numero = false);
+		} while (numero == false);
+		
+		System.out.println("Se ha dado de baja al alumno");
 
 		System.out.println("\n");
 
