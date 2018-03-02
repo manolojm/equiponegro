@@ -1039,7 +1039,7 @@ public class MenuAlumnos {
 
 				do { //Bucle para la correcta introducción del Nº de lista
 					
-					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					System.out.println("¿Que alumno ha faltado a una sesion?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println("Introduzca la posición: ");
