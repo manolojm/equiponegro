@@ -505,8 +505,6 @@ public class MenuAlumnos {
 
 			ArrayList<Calificacion> calificaciones = alumno.getNotas();
 
-			// Calificacion quitarAsignatura = new Calificacion(asignatura);
-
 			// Pedimos la asignatura
 
 			System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
@@ -526,7 +524,7 @@ public class MenuAlumnos {
 			}
 
 			// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
-			// que se encontraba (gracias a aux)
+			// que se encontraba (usando aux)
 
 			if (encontrado) {
 
@@ -1246,6 +1244,7 @@ public class MenuAlumnos {
 
 			case 6:
 
+				// Llamamos al metodo
 				try {
 					bajaAsignatura(listaAlumnos);
 				} catch (Exception ex) {
@@ -1259,12 +1258,14 @@ public class MenuAlumnos {
 
 			case 7:
 
+				// Llamamos al metodo
 				introducirCalificacion(listaAlumnos);
 
 				break;
 
 			case 8:
 
+				// Llamamos al metodo
 				mostrarCalificaciones(listaAlumnos);
 
 				break;
@@ -1304,7 +1305,10 @@ public class MenuAlumnos {
 				break;
 
 			case 12:
+				
+				// Llamamos al metodo
 				MenuAlumnos.listarFaltas(listaAlumnos);
+				
 				System.out.println("\n");
 				
 				break;
