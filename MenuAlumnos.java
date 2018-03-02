@@ -1,3 +1,21 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+ @Juanpa622
+ Sign out
+0
+0 1 davidtoral/equiponegro
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights
+equiponegro/MenuAlumnos.java
+170a691  5 minutes ago
+@AlexFandila AlexFandila Proyecto terminado
+@AlexFandila @AntonioMirallas @manolojm @Juanpa622
+     
+1329 lines (838 sloc)  33.1 KB
 import java.util.*;
 import java.lang.*;
 
@@ -390,7 +408,7 @@ public class MenuAlumnos {
 
 					if (idAlumno == -1)
 
-						System.out.println("DNI incorrecto");
+						throw new Exception("El alumno no existe.");
 
 				} while (idAlumno == -1); // Si ha devuelto -1 es que no lo ha encontrado
 
@@ -405,7 +423,7 @@ public class MenuAlumnos {
 
 					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
 
-						System.out.println("Posición incorrecta");
+						throw new Exception("El alumno no existe.");
 
 					entrada.nextLine(); // Vaciamos el buffer
 
@@ -459,7 +477,7 @@ public class MenuAlumnos {
 
 				if (elegir != 1 && elegir != 2)
 
-					System.out.println("Elección incorrecta");
+					throw new Exception("El alumno no existe.");
 
 			} while (elegir != 1 && elegir != 2);
 
@@ -491,7 +509,7 @@ public class MenuAlumnos {
 
 					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
 
-						System.out.println("Posición incorrecta");
+						throw new Exception("El alumno no existe.");
 
 					entrada.nextLine(); // Vaciamos el buffer
 
@@ -786,11 +804,13 @@ public class MenuAlumnos {
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
-			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			int numContinuar, seleccionar=-1, dia=1, mes=1, ano=2016;
 			String dni="";
 			int elegir=0;
 			ArrayList<DiaClase> faltas = new ArrayList();
 			boolean encontrado =  false;
+
+			do{ //bucle para repetir faltaDiaCompleto
 			
 			do{ //bucle para repetir todo si fecha es incorrecta
 				
@@ -925,6 +945,17 @@ public class MenuAlumnos {
 				
 			}
 			System.out.println("Falta puesta correctamente ");
+
+			do { // Bucle para decidir si continuar o no
+
+				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				numContinuar = entrada.nextInt();
+
+			} while (numContinuar != 1 && numContinuar != 2);
+
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+
+		} while (numContinuar != 2);
 			
 		
 			
@@ -936,10 +967,12 @@ public class MenuAlumnos {
 			Scanner entrada = new Scanner(System.in);
 
 			// Declaracion de variables
-			int seleccionar=-1, dia=1, mes=1, ano=2016;
+			int numContinuar, seleccionar=-1, dia=1, mes=1, ano=2016;
 			String dni="";
 			boolean encontrado;
 			ArrayList<DiaClase> faltas = new ArrayList();
+
+			do{ //bucle para repetir faltaHora completo
 			
 			do{ //bucle para repetir todo si fecha es incorrecta
 			// Pedimos al usuario que introduzca la fecha
@@ -1039,7 +1072,7 @@ public class MenuAlumnos {
 
 				do { //Bucle para la correcta introducción del Nº de lista
 					
-					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					System.out.println("¿Que alumno ha faltado a una sesion?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println("Introduzca la posición: ");
@@ -1070,6 +1103,18 @@ public class MenuAlumnos {
 			}
 			}while(encontrado==false);
 			System.out.println("Falta puesta correctamente");
+
+			do { // Bucle para decidir si continuar o no
+
+				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				numContinuar = entrada.nextInt();
+
+			} while (numContinuar != 1 && numContinuar != 2);
+
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+
+		} while (numContinuar != 2);
+
 		}
 
 	/*** Metodo 11: Pasar lista - Manolo ***/
