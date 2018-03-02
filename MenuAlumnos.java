@@ -210,7 +210,6 @@ public class MenuAlumnos {
 		// En caso de que no se introduzca correctamente, el metodo no hará nada.
 		do {
 			try {
-				entrada.nextLine();
 				numero = true;
 				System.out.println("Introduzca el alumno que desee dar de baja:");
 				seleccionar = entrada.nextInt();
@@ -224,6 +223,8 @@ public class MenuAlumnos {
 				numero = false;
 			}
 
+			entrada.nextLine();
+			
 		} while (numero == false);
 		
 		System.out.println("Se ha dado de baja al alumno");
@@ -1197,7 +1198,6 @@ public class MenuAlumnos {
 			case 2:
 				if(listaAlumnos.size() > 0) {
 					MenuAlumnos.darBaja(listaAlumnos);
-					System.out.println("Se ha dado de baja al alumno.");
 				}else {
 					System.out.println("No hay alumnos.");
 				}
