@@ -566,147 +566,234 @@ public class MenuAlumnos {
 
 		// Declaración de variables
 		Scanner entrada = new Scanner(System.in);
-		int posicion = 0, elegir, deseaMatricular = 1, posCalificacion = 0;
+		int posicion = 0, elegir = 0, deseaMatricular = 1, posCalificacion = 0, opcionLista = 0;
 		String dni = "";
 		String asig, calif;
-		boolean error = false, matriculado = false;
+		boolean error = false, matriculado = false, errorLetra = false;
 
-		do { // Bucle para repetir proceso de calificar
-
-			do {
-
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
-
-				elegir = entrada.nextInt();
-
-				entrada.nextLine(); // Vaciamos el buffer
-
-				if (elegir != 1 && elegir != 2)
-
-					System.out.println("Elección incorrecta");
-
-			} while (elegir != 1 && elegir != 2);
-
-			if (elegir == 1) { // Elegir por DNI
-
-				do { // Bucle para la correcta introducción del DNI
-
-					System.out.println("Introduzca el DNI del alumno: ");
-					dni = entrada.nextLine();
-
-					posicion = devolverPosicion(listaAlumnos, dni);
-
-					if (posicion == -1)
-
-						System.out.println("DNI incorrecto");
-
-				} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
-
-			}
-
-			else // Elegir por lista
-
-				do {
-
-					System.out.println("Introduzca la posición: ");
-					posicion = entrada.nextInt();
-
-					if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
-
-						System.out.println("Posición incorrecta");
-
-					entrada.nextLine();
-
-				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
-
-			System.out.println("Introduzca la asignatura: ");
-			asig = entrada.nextLine();
+		if(listaAlumnos.size() < 1)
 			
-			matriculado = false;
-
-			if (devolverCalificacion(listaAlumnos.get(posicion), asig) == -1) { // Llamada a devolverCalificacion para
-																				// comprobar la existencia de dicha
-																				// calificación
-
-				System.out.println(
-						"El alumno no está matriculado en esa asignatura, ¿desea matricularlo? (1 - Sí, 2 - No): ");
-
-				do { // Bucle para matricular al alumno en la asignatura
-
-					deseaMatricular = entrada.nextInt();
-
-					if (deseaMatricular == 1) {
-
-						try { // Matriculamos
-
-							matricularAlumno(listaAlumnos.get(posicion));
+			System.out.println("No hay alumnos matriculados");
+		
+		else {
+		
+			do { // Bucle para repetir proceso de calificar
+	
+				do {
+					
+					do { // Bucle para carácteres no válidos
+						
+						try {
+	
+							System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+							elegir = entrada.nextInt();
+							errorLetra = false;
+							
+						}catch(InputMismatchException ex) {
+							
+							System.out.println("Carácter no válido");
+							errorLetra = true;
 							entrada.nextLine();
-
+						}
+					
+					}while(errorLetra);
+	
+					entrada.nextLine(); // Vaciamos el buffer
+	
+					if (elegir != 1 && elegir != 2)
+	
+						System.out.println("Elección incorrecta");
+	
+				} while (elegir != 1 && elegir != 2);
+	
+				if (elegir == 1) { // Elegir por DNI
+	
+					do { // Bucle para la correcta introducción del DNI
+	
+						System.out.println("Introduzca el DNI del alumno: ");
+						dni = entrada.nextLine();
+	
+						posicion = devolverPosicion(listaAlumnos, dni);
+	
+						if (posicion == -1) {
+							
+							System.out.println("DNI incorrecto");
+							
+							do {
+								
+								do { // Bucle para carácteres no válidos
+									
+									try {
+							
+										System.out.println("¿Ver lista? 1 - Sí, 2 - No");
+										errorLetra = false;
+										opcionLista = entrada.nextInt();
+										
+									}catch(InputMismatchException ex) {
+										
+										System.out.println("Carácter no válido");
+										errorLetra = true;
+										entrada.nextLine();
+									}
+									
+								}while(errorLetra);
+								
+								if(opcionLista == 1) {
+									
+									try {
+									
+										listarAlumnos(listaAlumnos);
+										
+									}catch(Exception ex) {
+										
+										System.out.println(ex.getMessage());
+									}
+									
+								}
+								
+								entrada.nextLine();
+								
+							}while(opcionLista != 1 && opcionLista != 2);
+							
+						}
+	
+					} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
+	
+				}
+	
+				else // Elegir por lista
+	
+					do {
+						
+						do { // Bucle para carácteres no válidos
+							
+							try {
+							
+								System.out.println("Introduzca la posición: ");
+								posicion = entrada.nextInt();
+								errorLetra = false;
+								
+							}catch(InputMismatchException ex) {
+								
+								System.out.println("Carácter no válido");
+								errorLetra = true;
+								entrada.nextLine();
+							}
+						
+						}while(errorLetra);
+	
+						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+	
+							System.out.println("Posición incorrecta");
+	
+						entrada.nextLine();
+	
+					} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
+	
+				System.out.println("Introduzca la asignatura: ");
+				asig = entrada.nextLine();
+				
+				matriculado = false;
+	
+				if (devolverCalificacion(listaAlumnos.get(posicion), asig) == -1) { // Llamada a devolverCalificacion para
+																					// comprobar la existencia de dicha
+																					// calificación
+	
+					System.out.println(
+							"El alumno no está matriculado en esa asignatura, ¿desea matricularlo? (1 - Sí, 2 - No): ");
+	
+					do { // Bucle para matricular al alumno en la asignatura
+	
+						deseaMatricular = entrada.nextInt();
+	
+						if (deseaMatricular == 1) {
+	
+							try { // Matriculamos
+	
+								matricularAlumno(listaAlumnos.get(posicion));
+								entrada.nextLine();
+	
+							} catch (Exception ex) {
+	
+								System.out.println(ex.getMessage());
+							}
+							
+							matriculado = true;
+							
+						}
+	
+						else if (deseaMatricular == 2)
+	
+							System.out.println("Volviendo...");
+	
+						else
+	
+							System.out.println("Error. Vuelva a elegir una opción (1 - Sí, 2 - No):");
+	
+					} while (deseaMatricular != 1 && deseaMatricular != 2);
+	
+				}
+	
+				if (deseaMatricular == 1) { // El alumno ya está matriculado en la asignatura
+	
+					do { // Bluce para la correcta introducción de la nota
+	
+						System.out.println("Introduzca la calificación: ");
+						calif = entrada.nextLine();
+	
+						try { // En el caso de que se haya introducido mal la nota
+	
+							error = comprobarNota(calif);
+	
 						} catch (Exception ex) {
-
+	
+							error = true;
 							System.out.println(ex.getMessage());
 						}
+	
+					} while (error);
+	
+					if (matriculado) // Si matriculado es true es porque el usuario ha tenido que matricular antes la
+										// asignatura y por tanto la nota a cambiar es la que está en último lugar
+	
+						posCalificacion = listaAlumnos.get(posicion).getNotas().size() - 1;
+	
+					else // Si no ha tenido que matricular, entonces la asignatura ya existe y es aquella
+							// con el valor de asig, por tanto buscamos su posición con este valor sin temor
+							// a que no esté
+	
+						posCalificacion = devolverCalificacion(listaAlumnos.get(posicion), asig);
+	
+					listaAlumnos.get(posicion).getNotas().get(posCalificacion).setNota(calif);
+	
+				}
+	
+				do { // Bucle para decidir si continuar o no
+					
+					do { // Bucle para carácteres no válidos
 						
-						matriculado = true;
-						
-					}
-
-					else if (deseaMatricular == 2)
-
-						System.out.println("Volviendo...");
-
-					else
-
-						System.out.println("Error. Vuelva a elegir una opción (1 - Sí, 2 - No):");
-
-				} while (deseaMatricular != 1 && deseaMatricular != 2);
-
-			}
-
-			if (deseaMatricular == 1) { // El alumno ya está matriculado en la asignatura
-
-				do { // Bluce para la correcta introducción de la nota
-
-					System.out.println("Introduzca la calificación: ");
-					calif = entrada.nextLine();
-
-					try { // En el caso de que se haya introducido mal la nota
-
-						error = comprobarNota(calif);
-
-					} catch (Exception ex) {
-
-						error = true;
-						System.out.println(ex.getMessage());
-					}
-
-				} while (error);
-
-				if (matriculado) // Si matriculado es true es porque el usuario ha tenido que matricular antes la
-									// asignatura y por tanto la nota a cambiar es la que está en último lugar
-
-					posCalificacion = listaAlumnos.get(posicion).getNotas().size() - 1;
-
-				else // Si no ha tenido que matricular, entonces la asignatura ya existe y es aquella
-						// con el valor de asig, por tanto buscamos su posición con este valor sin temor
-						// a que no esté
-
-					posCalificacion = devolverCalificacion(listaAlumnos.get(posicion), asig);
-
-				listaAlumnos.get(posicion).getNotas().get(posCalificacion).setNota(calif);
-
-			}
-
-			do { // Bucle para decidir si continuar o no
-
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
-				elegir = entrada.nextInt();
-
-			} while (elegir != 1 && elegir != 2);
-
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
-
-		} while (elegir != 2);
+						try {
+							
+							System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+							elegir = entrada.nextInt();
+							errorLetra = false;
+							
+						}catch(InputMismatchException ex) {
+							
+							System.out.println("Carácter no válido");
+							errorLetra = true;
+							entrada.nextLine();
+						}
+					
+					}while(errorLetra);
+	
+				} while (elegir != 1 && elegir != 2);
+	
+				entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+	
+			} while (elegir != 2);
+			
+		}
 	}
 
 	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
@@ -714,52 +801,127 @@ public class MenuAlumnos {
 
 		Scanner entrada = new Scanner(System.in);
 		String dni;
-		int posicion, numContinuar, elegir;
-		boolean error = false;
+		int posicion = 0, numContinuar = 0, elegir = 0, opcionLista = 0;
+		boolean error = false, errorLetra = false;
 
-		do { // Bucle para repetir proceso de calificar
-
-			do {
-
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
-
-				elegir = entrada.nextInt();
-
-				if (elegir != 1 && elegir != 2)
-
-					System.out.println("Elección incorrecta");
-
-			} while (elegir != 1 && elegir != 2);
-
-			if (elegir == 1) // Elegir por DNI
-
-				do { // Bucle para la correcta introducción del DNI
-
-					entrada.nextLine(); // Vaciamos el buffer
-
-					System.out.println("Introduzca el DNI del alumno: ");
-					dni = entrada.nextLine();
-
-					posicion = devolverPosicion(listaAlumnos, dni);
-
-					if (posicion == -1)
-
-						System.out.println("DNI incorrecto");
-
-				} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
-
-			else // Elegir por lista
-
+		if(listaAlumnos.size() < 1)
+			
+			System.out.println("No hay alumnos matriculados");
+		
+		else {
+		
+			do { // Bucle para repetir proceso de calificar
+	
 				do {
-
-					System.out.println("Introduzca la posición: ");
-					posicion = entrada.nextInt();
-
-					if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
-
-						System.out.println("Posición incorrecta");
-
-				} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
+					
+					do { // Bucle para carácteres no válidos
+						
+						try {
+	
+							System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+							elegir = entrada.nextInt();
+							errorLetra = false;
+							
+						}catch(InputMismatchException ex) {
+							
+							System.out.println("Carácter no válido");
+							errorLetra = true;
+							entrada.nextLine();
+						}
+					
+					}while(errorLetra);
+	
+					entrada.nextLine(); // Vaciamos el buffer
+	
+					if (elegir != 1 && elegir != 2)
+	
+						System.out.println("Elección incorrecta");
+	
+				} while (elegir != 1 && elegir != 2);
+	
+				if (elegir == 1) { // Elegir por DNI
+	
+					do { // Bucle para la correcta introducción del DNI
+	
+						System.out.println("Introduzca el DNI del alumno: ");
+						dni = entrada.nextLine();
+	
+						posicion = devolverPosicion(listaAlumnos, dni);
+	
+						if (posicion == -1) {
+							
+							System.out.println("DNI incorrecto");
+							
+							do {
+								
+								do { // Bucle para carácteres no válidos
+									
+									try {
+							
+										System.out.println("¿Ver lista? 1 - Sí, 2 - No");
+										errorLetra = false;
+										opcionLista = entrada.nextInt();
+										
+									}catch(InputMismatchException ex) {
+										
+										System.out.println("Carácter no válido");
+										errorLetra = true;
+										entrada.nextLine();
+									}
+									
+								}while(errorLetra);
+								
+								if(opcionLista == 1) {
+									
+									try {
+									
+										listarAlumnos(listaAlumnos);
+										
+									}catch(Exception ex) {
+										
+										System.out.println(ex.getMessage());
+									}
+									
+								}
+								
+								entrada.nextLine();
+								
+							}while(opcionLista != 1 && opcionLista != 2);
+							
+						}
+	
+					} while (posicion == -1); // Si ha devuelto -1 es que no lo ha encontrado
+	
+				}
+	
+				else // Elegir por lista
+	
+					do {
+						
+						do { // Bucle para carácteres no válidos
+							
+							try {
+							
+								System.out.println("Introduzca la posición: ");
+								posicion = entrada.nextInt();
+								errorLetra = false;
+								
+							}catch(InputMismatchException ex) {
+								
+								System.out.println("Carácter no válido");
+								errorLetra = true;
+								entrada.nextLine();
+							}
+						
+						}while(errorLetra);
+	
+						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+	
+							System.out.println("Posición incorrecta");
+	
+						entrada.nextLine();
+	
+					} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
 
 			System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(posicion).getDni() + " es ");
 
@@ -771,15 +933,32 @@ public class MenuAlumnos {
 			}
 
 			do { // Bucle para decidir si continuar o no
-
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
-				numContinuar = entrada.nextInt();
+				
+				do { // Bucle para carácteres no válidos
+					
+					try {
+						
+						System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+						numContinuar = entrada.nextInt();
+						errorLetra = false;
+						
+					}catch(InputMismatchException ex) {
+						
+						System.out.println("Carácter no válido");
+						errorLetra = true;
+						entrada.nextLine();
+					}
+				
+				}while(errorLetra);
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
 			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
 
 		} while (numContinuar != 2);
+			
+		}
+		
 	}
 
 	/*** Metodo 9: Poner falta dia completo - Alejandro Fandila Cano y Juan Paez  ***/
