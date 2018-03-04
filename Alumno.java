@@ -1,4 +1,4 @@
-// Clase Alumno. Autor: Manuel Antonio Jiménez
+// Clase Alumno. Autor: Manuel Antonio JimÃ©nez
 
 import java.util.ArrayList;
 
@@ -88,7 +88,7 @@ public class Alumno {
 		this.notas = notas;
 	}
 	
-	// Sobrecarga del método equals de la clase Object
+	// Sobrecarga del mÃ©todo equals de la clase Object
 	public boolean equals(Object object){
 		boolean igual = false;
 
