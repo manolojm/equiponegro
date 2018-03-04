@@ -3,28 +3,28 @@ import java.lang.*;
 
 public class MenuAlumnos {
 
-	/*** Menú ***/
+	/*** Menï¿½ ***/
 	public static void mostrarMenu() {
 
-		System.out.println("Introduzca la opción del menú: ");
+		System.out.println("Introduzca la opciï¿½n del menï¿½: ");
 		System.out.println("1 para dar de alta alumnos");
 		System.out.println("2 para dar de baja alumnos");
 		System.out.println("3 para listar a los alumnos");
 		System.out.println("4 para modificar alumnos");
 		System.out.println("5 para matricular alumnos");
 		System.out.println("6 para dar de baja una asignatura");
-		System.out.println("7 para introducir una calificación trimestral");
+		System.out.println("7 para introducir una calificaciï¿½n trimestral");
 		System.out.println("8 para listar las calificaciones de un alumno");
-		System.out.println("9 para poner una falta de un día completo");
-		System.out.println("10 para poner una falta en una sesión");
+		System.out.println("9 para poner una falta de un dï¿½a completo");
+		System.out.println("10 para poner una falta en una sesiï¿½n");
 		System.out.println("11 para pasar lista");
 		System.out.println("12 para listar faltas");
 		System.out.println("13 para salir");
 	}
 
-	/*** Método devolverPosicion - Autor: Antonio Mirallas ***/
-	// Este método está hecho para devolver la posición de un alumno recibiendo su
-	// DNI. En caso de no encontrar ese DNI devolverá -1
+	/*** Mï¿½todo devolverPosicion - Autor: Antonio Mirallas ***/
+	// Este mï¿½todo estï¿½ hecho para devolver la posiciï¿½n de un alumno recibiendo su
+	// DNI. En caso de no encontrar ese DNI devolverï¿½ -1
 	public static int devolverPosicion(ArrayList<Alumno> lista, String dni) {
 
 		boolean encontrado = false;
@@ -42,7 +42,7 @@ public class MenuAlumnos {
 				posicion++;
 		}
 
-		if (!encontrado) // Si no está devuelve -1
+		if (!encontrado) // Si no estï¿½ devuelve -1
 
 			posicion = -1;
 
@@ -50,8 +50,8 @@ public class MenuAlumnos {
 
 	}
 
-	/*** Método devolverCalificación - Antonio Mirallas ***/
-	// Método para devolver la posición de una calificación recibiendo la posición
+	/*** Mï¿½todo devolverCalificaciï¿½n - Antonio Mirallas ***/
+	// Mï¿½todo para devolver la posiciï¿½n de una calificaciï¿½n recibiendo la posiciï¿½n
 	// del alumno y el nombre de la asignatura. En caso de no encontrar dicha
 	// asignatura devuelve -1
 	public static int devolverCalificacion(Alumno alumno, String asig) {
@@ -63,7 +63,7 @@ public class MenuAlumnos {
 		// encontremos la asignatura continuamos el bucle
 		while (posCal < alumno.getNotas().size() && !encontrado) {
 
-			Calificacion calificacion = alumno.getNotas().get(posCal); // Obtenemos la nota en la posición
+			Calificacion calificacion = alumno.getNotas().get(posCal); // Obtenemos la nota en la posiciï¿½n
 																		// posCal del Alumno posAlumno
 
 			if (calificacion.getAsignatura().equals(asig))
@@ -75,17 +75,17 @@ public class MenuAlumnos {
 				posCal++;
 		}
 
-		if (!encontrado) // Si no está devuelve -1
+		if (!encontrado) // Si no estï¿½ devuelve -1
 
 			posCal = -1;
 
-		return posCal; // Devolvemos la posición de la asignatura buscada en el alumno de la posición
+		return posCal; // Devolvemos la posiciï¿½n de la asignatura buscada en el alumno de la posiciï¿½n
 						// posAlumno
 
 	}
 
-	/*** Método comprobarNota - Antonio Mirallas ***/
-	// Método para comprobar si una nota introducida es correcta
+	/*** Mï¿½todo comprobarNota - Antonio Mirallas ***/
+	// Mï¿½todo para comprobar si una nota introducida es correcta
 	public static boolean comprobarNota(String nota) throws Exception {
 
 		boolean error = false;
@@ -100,16 +100,16 @@ public class MenuAlumnos {
 
 		}
 
-		if (error) // Si hay error lanzamos excepción
+		if (error) // Si hay error lanzamos excepciï¿½n
 
 			throw new Exception("Error, nota incorrecta");
 
 		return error;
 	}
 
-	/*** Método matricularAlumno - David Toral ***/
+	/*** Mï¿½todo matricularAlumno - David Toral ***/
 
-	// Método para matricular a un alumno en una asignatura
+	// Mï¿½todo para matricular a un alumno en una asignatura
 
 	public static void matricularAlumno(Alumno alumno) throws Exception {
 
@@ -129,7 +129,7 @@ public class MenuAlumnos {
 		System.out.println("Introduzca el nombre de la asignatura de la que va a ser matriculado el alumno: ");
 		asignatura = entrada.nextLine();
 
-		// Comprobamos a través del método equals de la clase Calificación que la
+		// Comprobamos a travï¿½s del mï¿½todo equals de la clase Calificaciï¿½n que la
 		// asignatura introducida por el usuario no ha sido introducida anteriormente
 
 		for (int i = 0; i < calificaciones.size(); i++) {
@@ -140,7 +140,7 @@ public class MenuAlumnos {
 			}
 		}
 
-		// Si la asignatura no se había introducido anteriormente lo añade correctamente
+		// Si la asignatura no se habï¿½a introducido anteriormente lo aï¿½ade correctamente
 
 		if (!encontrado) {
 
@@ -149,7 +149,7 @@ public class MenuAlumnos {
 
 			System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
 					+ " ha sido correctamente matriculado en " + asignatura
-					+ ". Está matriculado en las siguientes asignaturas:");
+					+ ". Estï¿½ matriculado en las siguientes asignaturas:");
 
 			for (int i = 0; i < calificaciones.size(); i++) {
 
@@ -159,6 +159,13 @@ public class MenuAlumnos {
 		} else {
 
 			throw new Exception("El alumno ya estaba matriculado en " + asignatura);
+		}
+	}
+	
+	/*** MÃ©todo para comprobar si hay alumnos - Manolo ***/
+	public static void hayAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception{
+		if (listaAlumnos.size() < 1) {
+			throw new Exception("Error: no hay alumnos en la lista");
 		}
 	}
 
@@ -187,7 +194,7 @@ public class MenuAlumnos {
 
 		if (devolverPosicion(lista, nuevo.getDni()) == -1) {
 
-			// Tan solo añadiremos al alumno en caso de que este no exista.
+			// Tan solo aï¿½adiremos al alumno en caso de que este no exista.
 
 			lista.add(nuevo);
 			System.out.println("Se ha dado de alta al alumno.");
@@ -197,7 +204,7 @@ public class MenuAlumnos {
 
 	}
 
-	/*** Método 2: Dar de baja - Autor: Alejandro Fandila Cano. ***/
+	/*** Mï¿½todo 2: Dar de baja - Autor: Alejandro Fandila Cano. ***/
 	public static void darBaja(ArrayList<Alumno> lista) throws Exception {
 
 		boolean numero;
@@ -209,7 +216,7 @@ public class MenuAlumnos {
 
 		MenuAlumnos.listarAlumnos(lista);
 
-		// En caso de que no se introduzca correctamente, el metodo no hará nada.
+		// En caso de que no se introduzca correctamente, el metodo no harï¿½ nada.
 		do {
 			try {
 				numero = true;
@@ -233,10 +240,8 @@ public class MenuAlumnos {
 	/* Recorre el ArrayList para listar los alumnos */
 	public static void listarAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
 
-		// Excepcion
-		if (listaAlumnos.size() < 1) {
-			throw new Exception("Error: no hay alumnos en la lista");
-		}
+		// Excepcion: no hay alumnos en la lista
+		hayAlumnos(listaAlumnos);
 
 		// Ciclo para sacar los alumnos
 		for (int i = 0; i < listaAlumnos.size(); i++) {
@@ -245,21 +250,26 @@ public class MenuAlumnos {
 
 			// Mostrar Alumno
 			System.out.println("Numero : " + i + " / DNI: " + alumnoElegido.getDni() + " / Nombre: "
-					+ alumnoElegido.getNombre() + " / Apellidos: " + alumnoElegido.getApellidos() + " \n/ Telefono: "
-					+ alumnoElegido.getTelefono() + " / Email: " + alumnoElegido.getEmail());
+					+ alumnoElegido.getNombre() + " / Apellidos: " + alumnoElegido.getApellidos() 
+					+ " \n   / Telefono: " + alumnoElegido.getTelefono() 
+					+ " / Email: " + alumnoElegido.getEmail() + "\n");
 		}
 	}
 
 	/*** Metodo 4: Modificar Alumnos - Manolo ***/
-	/* Permite modificar cualquier caracterísitca de un alumno a través de un menú*/
+	/* Permite modificar cualquier caracterï¿½sitca de un alumno a travï¿½s de un menï¿½*/
 	public static void modificarAlumnos(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 		// Variables
 		Scanner entrada = new Scanner(System.in);
 		int numerote = 1, alumnoModifico, numerito;
+		
+		// Excepcion: no hay alumnos en la lista
+		hayAlumnos(listaAlumnos);
 
 		do {
 
+			// Preguntamos que alumno se desea modificar
 			System.out.println("Alumno a modificar: ");
 			alumnoModifico = entrada.nextInt();
 
@@ -352,7 +362,7 @@ public class MenuAlumnos {
 		} while (numerote == 1); // Fin
 	}
 
-	/*** Método 5: Dar de alta de una asignatura - David ***/
+	/*** Mï¿½todo 5: Dar de alta de una asignatura - David ***/
 
 	public static void altaAsignatura(ArrayList<Alumno> listaAlumnos) throws Exception {
 
@@ -364,24 +374,27 @@ public class MenuAlumnos {
 		int numContinuar = 2;
 		int elegir = 0;
 		String dni = "";
+		
+		// Excepcion: no hay alumnos en la lista
+		hayAlumnos(listaAlumnos);
 
 		do { // Bucle para repetir proceso de calificar
 
 			do {
 
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 
 				elegir = entrada.nextInt();
 
 				if (elegir != 1 && elegir != 2)
 
-					System.out.println("Elección incorrecta");
+					System.out.println("Elecciï¿½n incorrecta");
 
 			} while (elegir != 1 && elegir != 2);
 
 			if (elegir == 1) { // Elegir por DNI
 
-				do { // Bucle para la correcta introducción del DNI
+				do { // Bucle para la correcta introducciï¿½n del DNI
 
 					entrada.nextLine(); // Vaciamos el buffer
 
@@ -402,10 +415,10 @@ public class MenuAlumnos {
 
 				do {
 
-					System.out.println("Introduzca la posición: ");
+					System.out.println("Introduzca la posiciï¿½n: ");
 					idAlumno = entrada.nextInt();
 
-					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
+					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posiciï¿½n
 
 						throw new Exception("El alumno no existe.");
 
@@ -417,25 +430,25 @@ public class MenuAlumnos {
 
 			Alumno alumno = listaAlumnos.get(idAlumno);
 
-			// Llamamos al método matricularAlumno y le pasamos el alumno que acabamos de
+			// Llamamos al mï¿½todo matricularAlumno y le pasamos el alumno que acabamos de
 			// pedir
 
 			matricularAlumno(alumno);
 
 			do { // Bucle para decidir si continuar o no
 
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 				numContinuar = entrada.nextInt();
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteración
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteraciï¿½n
 
 		} while (numContinuar != 2);
 
 	}
 
-	/*** Método 6: Dar de baja de una asignatura - David ***/
+	/*** Mï¿½todo 6: Dar de baja de una asignatura - David ***/
 
 	public static void bajaAsignatura(ArrayList<Alumno> listaAlumnos) throws Exception {
 
@@ -450,12 +463,15 @@ public class MenuAlumnos {
 		String dni = "";
 		String asignatura = "";
 		boolean encontrado = false;
+		
+		// Excepcion: no hay alumnos en la lista
+		hayAlumnos(listaAlumnos);
 
 		do { // Bucle para repetir proceso de calificar
 
 			do {
 
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 
 				elegir = entrada.nextInt();
 
@@ -467,7 +483,7 @@ public class MenuAlumnos {
 
 			if (elegir == 1) { // Elegir por DNI
 
-				do { // Bucle para la correcta introducción del DNI
+				do { // Bucle para la correcta introducciï¿½n del DNI
 
 					entrada.nextLine(); // Vaciamos el buffer
 
@@ -488,10 +504,10 @@ public class MenuAlumnos {
 
 				do {
 
-					System.out.println("Introduzca la posición: ");
+					System.out.println("Introduzca la posiciï¿½n: ");
 					idAlumno = entrada.nextInt();
 
-					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posición
+					if (idAlumno < 0 || idAlumno > listaAlumnos.size() - 1) // Comprobamos posiciï¿½n
 
 						throw new Exception("El alumno no existe.");
 
@@ -503,7 +519,7 @@ public class MenuAlumnos {
 
 			Alumno alumno = listaAlumnos.get(idAlumno);
 
-			// Declaramos un ArrayList de Calificación y declaramos su constructor
+			// Declaramos un ArrayList de Calificaciï¿½n y declaramos su constructor
 
 			ArrayList<Calificacion> calificaciones = alumno.getNotas();
 
@@ -514,20 +530,20 @@ public class MenuAlumnos {
 			System.out.println("Introduzca el nombre de la asignatura de la que va a ser desmatriculado el alumno: ");
 			asignatura = entrada.nextLine();
 
-			// Comprobamos a través del método equals de la clase Calificación que el alumno
-			// está matriculado en esa asignatura
+			// Comprobamos a travï¿½s del mï¿½todo equals de la clase Calificaciï¿½n que el alumno
+			// estï¿½ matriculado en esa asignatura
 
 			for (int i = 0; i < calificaciones.size(); i++) {
 
 				if (calificaciones.get(i).getAsignatura().equals(asignatura)) {
 
 					encontrado = true;
-					aux = i; // Almacenamos la posición en la que se encuentra la asignatura en una variable
+					aux = i; // Almacenamos la posiciï¿½n en la que se encuentra la asignatura en una variable
 								// auxiliar
 				}
 			}
 
-			// Si el alumno estaba matriculado de esa asignatura, borra la posición en la
+			// Si el alumno estaba matriculado de esa asignatura, borra la posiciï¿½n en la
 			// que se encontraba (gracias a aux)
 
 			if (encontrado) {
@@ -536,7 +552,7 @@ public class MenuAlumnos {
 
 				System.out.println("El alumno " + alumno.getNombre() + " " + alumno.getApellidos()
 						+ " ha sido correctamente desmatriculado de " + asignatura
-						+ ". Está matriculado en las siguientes asignaturas:");
+						+ ". Estï¿½ matriculado en las siguientes asignaturas:");
 
 				for (int i = 0; i < calificaciones.size(); i++) {
 
@@ -550,21 +566,21 @@ public class MenuAlumnos {
 
 			do { // Bucle para decidir si continuar o no
 
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 				numContinuar = entrada.nextInt();
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteración
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteraciï¿½n
 
 		} while (numContinuar != 2);
 
 	}
 
-	/*** Metodo 7: Calificación trimestral - Antonio Mirallas ***/
+	/*** Metodo 7: Calificaciï¿½n trimestral - Antonio Mirallas ***/
 	public static void introducirCalificacion(ArrayList<Alumno> listaAlumnos) {
 
-		// Declaración de variables
+		// Declaraciï¿½n de variables
 		Scanner entrada = new Scanner(System.in);
 		int posicion = 0, elegir = 0, deseaMatricular = 1, posCalificacion = 0, opcionLista = 0;
 		String dni = "";
@@ -581,17 +597,17 @@ public class MenuAlumnos {
 	
 				do {
 					
-					do { // Bucle para carácteres no válidos
+					do { // Bucle para carï¿½cteres no vï¿½lidos
 						
 						try {
 	
-							System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+							System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 							elegir = entrada.nextInt();
 							errorLetra = false;
 							
 						}catch(InputMismatchException ex) {
 							
-							System.out.println("Carácter no válido");
+							System.out.println("Carï¿½cter no vï¿½lido");
 							errorLetra = true;
 							entrada.nextLine();
 						}
@@ -602,13 +618,13 @@ public class MenuAlumnos {
 	
 					if (elegir != 1 && elegir != 2)
 	
-						System.out.println("Elección incorrecta");
+						System.out.println("Elecciï¿½n incorrecta");
 	
 				} while (elegir != 1 && elegir != 2);
 	
 				if (elegir == 1) { // Elegir por DNI
 	
-					do { // Bucle para la correcta introducción del DNI
+					do { // Bucle para la correcta introducciï¿½n del DNI
 	
 						System.out.println("Introduzca el DNI del alumno: ");
 						dni = entrada.nextLine();
@@ -621,17 +637,17 @@ public class MenuAlumnos {
 							
 							do {
 								
-								do { // Bucle para carácteres no válidos
+								do { // Bucle para carï¿½cteres no vï¿½lidos
 									
 									try {
 							
-										System.out.println("¿Ver lista? 1 - Sí, 2 - No");
+										System.out.println("ï¿½Ver lista? 1 - Sï¿½, 2 - No");
 										errorLetra = false;
 										opcionLista = entrada.nextInt();
 										
 									}catch(InputMismatchException ex) {
 										
-										System.out.println("Carácter no válido");
+										System.out.println("Carï¿½cter no vï¿½lido");
 										errorLetra = true;
 										entrada.nextLine();
 									}
@@ -665,26 +681,26 @@ public class MenuAlumnos {
 	
 					do {
 						
-						do { // Bucle para carácteres no válidos
+						do { // Bucle para carï¿½cteres no vï¿½lidos
 							
 							try {
 							
-								System.out.println("Introduzca la posición: ");
+								System.out.println("Introduzca la posiciï¿½n: ");
 								posicion = entrada.nextInt();
 								errorLetra = false;
 								
 							}catch(InputMismatchException ex) {
 								
-								System.out.println("Carácter no válido");
+								System.out.println("Carï¿½cter no vï¿½lido");
 								errorLetra = true;
 								entrada.nextLine();
 							}
 						
 						}while(errorLetra);
 	
-						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posiciï¿½n
 	
-							System.out.println("Posición incorrecta");
+							System.out.println("Posiciï¿½n incorrecta");
 	
 						entrada.nextLine();
 	
@@ -697,10 +713,10 @@ public class MenuAlumnos {
 	
 				if (devolverCalificacion(listaAlumnos.get(posicion), asig) == -1) { // Llamada a devolverCalificacion para
 																					// comprobar la existencia de dicha
-																					// calificación
+																					// calificaciï¿½n
 	
 					System.out.println(
-							"El alumno no está matriculado en esa asignatura, ¿desea matricularlo? (1 - Sí, 2 - No): ");
+							"El alumno no estï¿½ matriculado en esa asignatura, ï¿½desea matricularlo? (1 - Sï¿½, 2 - No): ");
 	
 					do { // Bucle para matricular al alumno en la asignatura
 	
@@ -728,17 +744,17 @@ public class MenuAlumnos {
 	
 						else
 	
-							System.out.println("Error. Vuelva a elegir una opción (1 - Sí, 2 - No):");
+							System.out.println("Error. Vuelva a elegir una opciï¿½n (1 - Sï¿½, 2 - No):");
 	
 					} while (deseaMatricular != 1 && deseaMatricular != 2);
 	
 				}
 	
-				if (deseaMatricular == 1) { // El alumno ya está matriculado en la asignatura
+				if (deseaMatricular == 1) { // El alumno ya estï¿½ matriculado en la asignatura
 	
-					do { // Bluce para la correcta introducción de la nota
+					do { // Bluce para la correcta introducciï¿½n de la nota
 	
-						System.out.println("Introduzca la calificación: ");
+						System.out.println("Introduzca la calificaciï¿½n: ");
 						calif = entrada.nextLine();
 	
 						try { // En el caso de que se haya introducido mal la nota
@@ -754,13 +770,13 @@ public class MenuAlumnos {
 					} while (error);
 	
 					if (matriculado) // Si matriculado es true es porque el usuario ha tenido que matricular antes la
-										// asignatura y por tanto la nota a cambiar es la que está en último lugar
+										// asignatura y por tanto la nota a cambiar es la que estï¿½ en ï¿½ltimo lugar
 	
 						posCalificacion = listaAlumnos.get(posicion).getNotas().size() - 1;
 	
 					else // Si no ha tenido que matricular, entonces la asignatura ya existe y es aquella
-							// con el valor de asig, por tanto buscamos su posición con este valor sin temor
-							// a que no esté
+							// con el valor de asig, por tanto buscamos su posiciï¿½n con este valor sin temor
+							// a que no estï¿½
 	
 						posCalificacion = devolverCalificacion(listaAlumnos.get(posicion), asig);
 	
@@ -770,17 +786,17 @@ public class MenuAlumnos {
 	
 				do { // Bucle para decidir si continuar o no
 					
-					do { // Bucle para carácteres no válidos
+					do { // Bucle para carï¿½cteres no vï¿½lidos
 						
 						try {
 							
-							System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+							System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 							elegir = entrada.nextInt();
 							errorLetra = false;
 							
 						}catch(InputMismatchException ex) {
 							
-							System.out.println("Carácter no válido");
+							System.out.println("Carï¿½cter no vï¿½lido");
 							errorLetra = true;
 							entrada.nextLine();
 						}
@@ -789,14 +805,14 @@ public class MenuAlumnos {
 	
 				} while (elegir != 1 && elegir != 2);
 	
-				entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+				entrada.nextLine(); // Vaciamos buffer para la siguiente iteracciï¿½n
 	
 			} while (elegir != 2);
 			
 		}
 	}
 
-	/*** Metodo 8: Calificación trimestral - Antonio Mirallas ***/
+	/*** Metodo 8: Calificaciï¿½n trimestral - Antonio Mirallas ***/
 	public static void mostrarCalificaciones(ArrayList<Alumno> listaAlumnos) {
 
 		Scanner entrada = new Scanner(System.in);
@@ -814,17 +830,17 @@ public class MenuAlumnos {
 	
 				do {
 					
-					do { // Bucle para carácteres no válidos
+					do { // Bucle para carï¿½cteres no vï¿½lidos
 						
 						try {
 	
-							System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+							System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 							elegir = entrada.nextInt();
 							errorLetra = false;
 							
 						}catch(InputMismatchException ex) {
 							
-							System.out.println("Carácter no válido");
+							System.out.println("Carï¿½cter no vï¿½lido");
 							errorLetra = true;
 							entrada.nextLine();
 						}
@@ -835,13 +851,13 @@ public class MenuAlumnos {
 	
 					if (elegir != 1 && elegir != 2)
 	
-						System.out.println("Elección incorrecta");
+						System.out.println("Elecciï¿½n incorrecta");
 	
 				} while (elegir != 1 && elegir != 2);
 	
 				if (elegir == 1) { // Elegir por DNI
 	
-					do { // Bucle para la correcta introducción del DNI
+					do { // Bucle para la correcta introducciï¿½n del DNI
 	
 						System.out.println("Introduzca el DNI del alumno: ");
 						dni = entrada.nextLine();
@@ -854,17 +870,17 @@ public class MenuAlumnos {
 							
 							do {
 								
-								do { // Bucle para carácteres no válidos
+								do { // Bucle para carï¿½cteres no vï¿½lidos
 									
 									try {
 							
-										System.out.println("¿Ver lista? 1 - Sí, 2 - No");
+										System.out.println("ï¿½Ver lista? 1 - Sï¿½, 2 - No");
 										errorLetra = false;
 										opcionLista = entrada.nextInt();
 										
 									}catch(InputMismatchException ex) {
 										
-										System.out.println("Carácter no válido");
+										System.out.println("Carï¿½cter no vï¿½lido");
 										errorLetra = true;
 										entrada.nextLine();
 									}
@@ -898,32 +914,32 @@ public class MenuAlumnos {
 	
 					do {
 						
-						do { // Bucle para carácteres no válidos
+						do { // Bucle para carï¿½cteres no vï¿½lidos
 							
 							try {
 							
-								System.out.println("Introduzca la posición: ");
+								System.out.println("Introduzca la posiciï¿½n: ");
 								posicion = entrada.nextInt();
 								errorLetra = false;
 								
 							}catch(InputMismatchException ex) {
 								
-								System.out.println("Carácter no válido");
+								System.out.println("Carï¿½cter no vï¿½lido");
 								errorLetra = true;
 								entrada.nextLine();
 							}
 						
 						}while(errorLetra);
 	
-						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posición
+						if (posicion < 0 || posicion > listaAlumnos.size() - 1) // Comprobamos posiciï¿½n
 	
-							System.out.println("Posición incorrecta");
+							System.out.println("Posiciï¿½n incorrecta");
 	
 						entrada.nextLine();
 	
 					} while (posicion < 0 || posicion > listaAlumnos.size() - 1);
 
-			System.out.println("La calificación del alumno con DNI " + listaAlumnos.get(posicion).getDni() + " es ");
+			System.out.println("La calificaciï¿½n del alumno con DNI " + listaAlumnos.get(posicion).getDni() + " es ");
 
 			for (int j = 0; j < listaAlumnos.get(posicion).getNotas().size(); j++) {
 
@@ -934,17 +950,17 @@ public class MenuAlumnos {
 
 			do { // Bucle para decidir si continuar o no
 				
-				do { // Bucle para carácteres no válidos
+				do { // Bucle para carï¿½cteres no vï¿½lidos
 					
 					try {
 						
-						System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+						System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 						numContinuar = entrada.nextInt();
 						errorLetra = false;
 						
 					}catch(InputMismatchException ex) {
 						
-						System.out.println("Carácter no válido");
+						System.out.println("Carï¿½cter no vï¿½lido");
 						errorLetra = true;
 						entrada.nextLine();
 					}
@@ -953,7 +969,7 @@ public class MenuAlumnos {
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracciï¿½n
 
 		} while (numContinuar != 2);
 			
@@ -972,6 +988,9 @@ public class MenuAlumnos {
 			int elegir=0;
 			ArrayList<DiaClase> faltas = new ArrayList();
 			boolean encontrado =  false;
+			
+			// Excepcion: no hay alumnos en la lista
+			hayAlumnos(alumnos);
 
 			do{ //bucle para repetir faltaDiaCompleto
 			do{ //bucle para repetir si continuar o no
@@ -1008,22 +1027,22 @@ public class MenuAlumnos {
 			}
 				}while(encontrado==false);
 			
-			do{ //bucle introduccion correcta del año
+			do{ //bucle introduccion correcta del aï¿½o
 				try{
 					
-					System.out.println("3. Año:");
+					System.out.println("3. Aï¿½o:");
 					ano = entrada.nextInt();
 					encontrado= true;
 					
 				}catch(InputMismatchException ex){
-					System.out.println("Vuelve a introducir un año");
+					System.out.println("Vuelve a introducir un aï¿½o");
 					encontrado=false;
 					entrada.next();
 				}
 			}while(encontrado==false);
 			
 
-			// Creamos / Setteamos fecha, y la añadimos a falta
+			// Creamos / Setteamos fecha, y la aï¿½adimos a falta
 			
 			try{ //comprobamos que la fecha es correcta
 				
@@ -1045,15 +1064,15 @@ public class MenuAlumnos {
 			
 			do{ //bucle que repite el dni y numero de lista
 				
-			do { //bucle para elegir entre el DNI O Nº de lista
+			do { //bucle para elegir entre el DNI O Nï¿½ de lista
 				try{
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 
 				elegir = entrada.nextInt();
 
 				if (elegir != 1 && elegir != 2)
 
-					System.out.println("Elección incorrecta");
+					System.out.println("Elecciï¿½n incorrecta");
 				
 					encontrado=true;
 				}catch(InputMismatchException ex){
@@ -1065,11 +1084,11 @@ public class MenuAlumnos {
 			
 			if (elegir == 1) // Elegir por DNI
 
-				do { // Bucle para la correcta introducción del DNI
+				do { // Bucle para la correcta introducciï¿½n del DNI
 
 					entrada.nextLine(); // Vaciamos el buffer
 					
-					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					System.out.println("ï¿½Que alumno ha faltado el dia completo?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println(""); //salto de linea
@@ -1089,18 +1108,18 @@ public class MenuAlumnos {
 			else // Elegir por lista
 				do{ //bucle que repite si el usuario mete alguna letra 
 					
-				do { //Bucle para la correcta introducción del Nº de lista
+				do { //Bucle para la correcta introducciï¿½n del Nï¿½ de lista
 					try{
-					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					System.out.println("ï¿½Que alumno ha faltado el dia completo?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println("");//salto de linea
-					System.out.println("Introduzca la posición: ");
+					System.out.println("Introduzca la posiciï¿½n: ");
 					seleccionar = entrada.nextInt();
 
-					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
+					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posiciï¿½n
 
-						System.out.println("Posición incorrecta");
+						System.out.println("Posiciï¿½n incorrecta");
 						encontrado=true;
 					
 					}catch(Exception ex){
@@ -1113,7 +1132,7 @@ public class MenuAlumnos {
 			}while(encontrado==false); //final del bucle que repite el numero del alumno
 			
 			}while(encontrado==false); //final del bucle que repite el dni y numero del alumno
-			// Cambiamos le añadimos a las faltas del alumno 6 mas
+			// Cambiamos le aï¿½adimos a las faltas del alumno 6 mas
 			try{
 				Fecha fecha = new Fecha(dia, mes, ano);
 				DiaClase falta = new DiaClase(fecha);
@@ -1132,7 +1151,7 @@ public class MenuAlumnos {
 			
 			do { // Bucle para decidir si continuar o no
 				try{
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 				numContinuar = entrada.nextInt();
 				encontrado=true;
 				}catch(InputMismatchException ex){
@@ -1142,7 +1161,7 @@ public class MenuAlumnos {
 				}
 			} while (numContinuar != 1 && numContinuar != 2);
 
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracciï¿½n
 
 		} while (numContinuar != 2);
 			
@@ -1160,6 +1179,9 @@ public class MenuAlumnos {
 			String dni="";
 			boolean encontrado;
 			ArrayList<DiaClase> faltas = new ArrayList();
+			
+			// Excepcion: no hay alumnos en la lista
+			hayAlumnos(alumnos);
 			
 			do{// bucle para repetir faltaHora completo
 			do{ //bucle para repetir si continuar o no
@@ -1194,20 +1216,20 @@ public class MenuAlumnos {
 			}
 				}while(encontrado==false); //final bucle mes
 			
-			do{ // bucle introducion correcta del año
+			do{ // bucle introducion correcta del aï¿½o
 				try{
 					encontrado= true;
-					System.out.println("3. Año:");
+					System.out.println("3. Aï¿½o:");
 					ano = entrada.nextInt();
 					
 				}catch(InputMismatchException ex){
-					System.out.println("Vuelve a introducir un año");
+					System.out.println("Vuelve a introducir un aï¿½o");
 					encontrado=false;
 					entrada.next();
 				}
-			}while(encontrado==false);//final bucle año
+			}while(encontrado==false);//final bucle aï¿½o
 			
-			// Creamos / Setteamos fecha, y la añadimos a falta
+			// Creamos / Setteamos fecha, y la aï¿½adimos a falta
 			
 			try{ //comprobar que la fecha es correcta
 				
@@ -1226,15 +1248,15 @@ public class MenuAlumnos {
 			do{ //bucle que repite el dni y numero de lista
 				
 			
-			do { //bucle para elegir entre el DNI O Nº de lista
+			do { //bucle para elegir entre el DNI O Nï¿½ de lista
 				try{
-				System.out.println("¿Elegirá al alumno por el DNI o por el número de lista? (1 - DNI, 2 - Nº lista): ");
+				System.out.println("ï¿½Elegirï¿½ al alumno por el DNI o por el nï¿½mero de lista? (1 - DNI, 2 - Nï¿½ lista): ");
 
 				seleccionar = entrada.nextInt();
 
 				if (seleccionar != 1 && seleccionar != 2)
 
-					System.out.println("Elección incorrecta");
+					System.out.println("Elecciï¿½n incorrecta");
 				
 					encontrado=true;
 					
@@ -1248,11 +1270,11 @@ public class MenuAlumnos {
 
 			if (seleccionar == 1) // Elegir por DNI
 
-				do { // Bucle para la correcta introducción del DNI
+				do { // Bucle para la correcta introducciï¿½n del DNI
 
 					entrada.nextLine(); // Vaciamos el buffer
 					
-					System.out.println("¿Que alumno ha faltado el dia completo?:");
+					System.out.println("ï¿½Que alumno ha faltado el dia completo?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println("Introduzca el DNI del alumno: ");
@@ -1274,18 +1296,18 @@ public class MenuAlumnos {
 				do{ //bucle que repite si el usuario mete alguna letra
 					
 				
-				do { //Bucle para la correcta introducción del Nº de lista
+				do { //Bucle para la correcta introducciï¿½n del Nï¿½ de lista
 					try{
-					System.out.println("¿Que alumno ha faltado a una sesion?:");
+					System.out.println("ï¿½Que alumno ha faltado a una sesion?:");
 					MenuAlumnos.listarAlumnos(alumnos); //mostramos los alumnos
 					
 					System.out.println("");//salto de linea
-					System.out.println("Introduzca la posición: ");
+					System.out.println("Introduzca la posiciï¿½n: ");
 					seleccionar = entrada.nextInt();
 
-					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posición
+					if (seleccionar < 0 || seleccionar > alumnos.size() - 1) // Comprobamos posiciï¿½n
 
-						System.out.println("Posición incorrecta");
+						System.out.println("Posiciï¿½n incorrecta");
 						encontrado=true;
 						
 					}catch(InputMismatchException ex){
@@ -1298,7 +1320,7 @@ public class MenuAlumnos {
 				}while(encontrado==false); //final del bucle que repite el numero del alumno
 				
 				}while(encontrado==false); //final del bucle que repite el dni y numero del alumno
-			// Le añadimos la faltas
+			// Le aï¿½adimos la faltas
 			do{
 			try{ //comprobamos que la sesion se a introducido correctamente
 				
@@ -1324,7 +1346,7 @@ public class MenuAlumnos {
 			do { // Bucle para decidir si continuar o no
 				try{
 					
-				System.out.println("¿Desea continuar? (1 - Sí, 2 - No): ");
+				System.out.println("ï¿½Desea continuar? (1 - Sï¿½, 2 - No): ");
 				numContinuar = entrada.nextInt();
 				encontrado=true;
 				
@@ -1338,7 +1360,7 @@ public class MenuAlumnos {
 
 			} while (numContinuar != 1 && numContinuar != 2);
 
-			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracción
+			entrada.nextLine(); // Vaciamos buffer para la siguiente iteracciï¿½n
 
 		} while (numContinuar != 2); //final de repetir si continua o no
 			
@@ -1349,7 +1371,6 @@ public class MenuAlumnos {
 	/* Preguntamos si ha venido cada uno de los alumnos y al final mostramos
 	cuantos han faltado */
 	public static void pasarLista(ArrayList<Alumno> listaAlumnos) throws Exception {
-
 		
 		Scanner entrada = new Scanner(System.in);
 		
@@ -1357,22 +1378,29 @@ public class MenuAlumnos {
 		Alumno alumnoAListar;
 		int numeroLista, contadorLista = 0;
 
-		// Excepcion
-		if (listaAlumnos.size() < 1) {
-			throw new Exception("Error: no hay alumnos en la lista");
-		}
+		// Excepcion: no hay alumnos en la lista
+		hayAlumnos(listaAlumnos);
 
 		// Ciclo para sacar los alumnos
 		for (int i = 0; i < listaAlumnos.size(); i++) {
 
 			alumnoAListar = listaAlumnos.get(i);
 
+			// Filtro para asegurarse que el usuario introduce opcion correcta
 			do {
+				
+				// Preguntamos si se encuentra el alumno
 				System.out.println("Se encuentra " + alumnoAListar.getNombre() + " - " + alumnoAListar.getDni()
 						+ " ?\n1 - Si\n2 - No\n");
 				numeroLista = entrada.nextInt();
+				
+				// Si introducimos un numero que no sea ni 1 ni 2
+				if ((numeroLista < 1) || (numeroLista > 2)){
+					System.out.println("Error, numero incorrecto");
+				}
 			} while ((numeroLista < 1) || (numeroLista > 2));
 
+			// Contador para las ausencias
 			if (numeroLista == 2) {
 				contadorLista++;
 			}
@@ -1383,7 +1411,7 @@ public class MenuAlumnos {
 	}
 
 	// Metodo 12: Listar Faltas - Alejandro Fandila Cano
-		public static void listarFaltas(ArrayList<Alumno> alumnos) throws Exception {
+		public static void listarFaltas(ArrayList<Alumno> listaAlumnos) throws Exception {
 
 			Scanner entrada = new Scanner(System.in);
 
@@ -1393,9 +1421,17 @@ public class MenuAlumnos {
 			faltas = new char[6];
 			boolean excepcion = false;
 			
-			// Seleccionamos un alumno
-			System.out.println("Elija un alumno:");
-			MenuAlumnos.listarAlumnos(alumnos);
+			// Excepcion: no hay alumnos en la lista
+			hayAlumnos(listaAlumnos);
+			
+			// Excepcion
+			if (listaAlumnos.size() < 1) {
+				throw new Exception("Error: no hay alumnos en la lista");
+			} else {
+				// Seleccionamos un alumno
+				System.out.println("Elija un alumno:");
+				MenuAlumnos.listarAlumnos(listaAlumnos);					
+			}
 			
 			//Excepcion InputMismatchException
 			do {
@@ -1405,9 +1441,9 @@ public class MenuAlumnos {
 					
 					seleccionar = entrada.nextInt();
 					
-					for (int i = 0; i < alumnos.get(seleccionar).getFaltas().size(); i++) {
-						faltas = alumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
-						alumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
+					for (int i = 0; i < listaAlumnos.get(seleccionar).getFaltas().size(); i++) {
+						faltas = listaAlumnos.get(seleccionar).getFaltas().get(i).getHorario().getSesiones();
+						listaAlumnos.get(seleccionar).getFaltas().get(i).getDia().imprimeFecha();
 						for (int k = 0; k < 6; k++) {
 							if(faltas[k] == 'F') {
 								System.out.println("Sesion "+(k + 1));
@@ -1421,7 +1457,7 @@ public class MenuAlumnos {
 					System.out.println("Introduzca un numero: ");
 					entrada.next();
 				}catch(IndexOutOfBoundsException ex2) {
-					System.out.println("No ha seleccionado ningún alumno.");
+					System.out.println("No ha seleccionado ningï¿½n alumno.");
 				}
 				
 			}while(excepcion == true);
@@ -1437,9 +1473,13 @@ public class MenuAlumnos {
 		boolean salir = false, opcionCorrecta;
 		int opcion = 0;
 
-		// Pruebas
-		Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
-		listaAlumnos.add(alumno1);
+		// Si se desea probar el programa 
+		/*Alumno alumno1 = new Alumno("12345X", "Antonio", "Lopez");
+		listaAlumnos.add(alumno1); 
+		Alumno alumno2 = new Alumno("12345Y", "Pepe", "Perez");
+		listaAlumnos.add(alumno2); 
+		Alumno alumno3 = new Alumno("12345Z", "Carlos", "Fernandez");
+		listaAlumnos.add(alumno3); */
 
 		do {
 
@@ -1463,12 +1503,16 @@ public class MenuAlumnos {
 
 			case 1:
 
+				// Llamamos al metodo
 				MenuAlumnos.darAlta(listaAlumnos);
 
 				System.out.println("\n");
+				
 				break;
 
 			case 2:
+				
+				// Llamamos al metodo
 				if(listaAlumnos.size() > 0) {
 					MenuAlumnos.darBaja(listaAlumnos);
 					System.out.println("Se ha dado de baja al alumno.");
@@ -1480,7 +1524,7 @@ public class MenuAlumnos {
 
 				break;
 
-			case 3: // Manolo
+			case 3: 
 
 				// Llamamos al metodo
 				try {
@@ -1488,13 +1532,12 @@ public class MenuAlumnos {
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
-
-				// Salto de linea
+				
 				System.out.println();
 
 				break;
 
-			case 4: // Manolo
+			case 4:
 
 				// Llamamos al metodo
 				try {
@@ -1503,9 +1546,10 @@ public class MenuAlumnos {
 					System.out.println("Caracter no valido");
 				} catch (IndexOutOfBoundsException ex) {
 					System.out.println("Numero no valido");
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
 				}
 
-				// Salto de linea
 				System.out.println();
 
 				break;
@@ -1515,47 +1559,64 @@ public class MenuAlumnos {
 				// Llamamos al metodo
 				try {
 					altaAsignatura(listaAlumnos);
+				} catch (InputMismatchException ex) {
+					System.out.println("Caracter no valido");
 				} catch (Exception ex) {
-
 					System.out.println(ex.getMessage());
 				}
 
-				// Salto de linea
 				System.out.println();
 
 				break;
 
 			case 6:
-
+				
+				// Llamamos al metodo
 				try {
 					bajaAsignatura(listaAlumnos);
-				} catch (Exception ex) {
-
+				} catch (InputMismatchException ex) {
+					System.out.println("Caracter no valido");
+				} catch (IndexOutOfBoundsException ex) {
+					System.out.println("Numero no valido");
+				}  catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
-				// Salto de linea
+				
 				System.out.println();
 
 				break;
 
 			case 7:
 
-				introducirCalificacion(listaAlumnos);
+				// Llamamos al metodo
+				try {
+					introducirCalificacion(listaAlumnos);
+				} catch (InputMismatchException ex) {
+					System.out.println("Caracter no valido");
+				}
+				
+				System.out.println();
 
 				break;
 
 			case 8:
 
+				// Llamamos al metodo
 				mostrarCalificaciones(listaAlumnos);
+				
+				System.out.println();
 
 				break;
 
 			case 9:
 
 				// Llamamos al metodo
-				faltaDiaCompleto(listaAlumnos);
-
-				//salto de linea	
+				try {
+					faltaDiaCompleto(listaAlumnos);
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+				
 				System.out.println();
 
 				break;
@@ -1563,30 +1624,41 @@ public class MenuAlumnos {
 			case 10:
 
 				// Llamamos al metodo
-				faltaHora(listaAlumnos);
-
-				//salto de linea
-				System.out.println();
-				
-				break;
-
-			case 11: // Manolo
-
-				// Llamamos al metodo
 				try {
-					pasarLista(listaAlumnos);
+					faltaHora(listaAlumnos);
 				} catch (Exception ex) {
 					System.out.println(ex.getMessage());
 				}
 
-				// Salto de linea
+				System.out.println();
+				
+				break;
+
+			case 11: 
+
+				// Llamamos al metodo
+				try {
+					pasarLista(listaAlumnos);
+				} catch (InputMismatchException ex) {
+					System.out.println("Caracter no valido");
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+
 				System.out.println();
 
 				break;
 
 			case 12:
-				MenuAlumnos.listarFaltas(listaAlumnos);
-				System.out.println("\n");
+				
+				// Llamamos al metodo
+				try {
+					MenuAlumnos.listarFaltas(listaAlumnos);
+				} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+				}
+				
+				System.out.println();
 				
 				break;
 
@@ -1600,7 +1672,7 @@ public class MenuAlumnos {
 
 			default:
 
-				System.out.println("Opción incorrecta");
+				System.out.println("Opciï¿½n incorrecta");
 
 				break;
 			}
