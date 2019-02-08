@@ -1,11 +1,13 @@
 # Práctica programación (Java)
 ## Equipo negro
 
+- - -
+
 [Enunciado](https://github.com/davidtoral/equiponegro/blob/master/EnunciadoPractica.pdf) de la práctica
 
 - - -
 
-Miembros del equipo: 
+**Miembros** del equipo: 
 - [Juan][juan]
 - [Antonio][antonio]
 - [Manolo][manolo]
@@ -21,7 +23,7 @@ Miembros del equipo:
 - - -
 
 *Ciclo Formativo*: Grado Superior en Desarrollo de Aplicaciones Web (**DAW**)  
-*Curso*: Segundo (**1º**)  
+*Curso*: Primero (**1º**)  
 *Asignatura*: **Programación**
 
 - - -
